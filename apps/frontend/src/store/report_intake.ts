@@ -11,6 +11,7 @@ import {
   ASFFResults as ASFFResultsMapper,
   BurpSuiteMapper,
   ChecklistResults,
+  CheckovMapper,
   ConveyorResults as ConveyorResultsMapper,
   CycloneDXSBOMResults,
   DBProtectMapper,
@@ -289,6 +290,8 @@ export class InspecIntake extends VuexModule {
         return new NeuVectorMapper(convertOptions.data).toHdf();
       case INPUT_TYPES.DEPENDENCY_TRACK:
         return new DependencyTrackMapper(convertOptions.data).toHdf();
+      case INPUT_TYPES.CHECKOV:
+        return new CheckovMapper(convertOptions.data).toHdf();
       default:
         return SnackbarModule.failure(
           `Invalid file uploaded (${filename}), no fingerprints matched.`
