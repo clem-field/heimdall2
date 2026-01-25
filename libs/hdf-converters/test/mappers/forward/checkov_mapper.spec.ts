@@ -122,6 +122,23 @@ describe('CheckovMapper', () => {
     expect(ecr_control.tags.checkov_id).to.equal('CKV_AWS_136');
   });
 
+  it('should correctly derive NIST controls from CCI mappings', () => {
+    const mapper = new CheckovMapper(sampleCheckovSarif);
+    const hdf = mapper.toHdf();
+    const controls = hdf.profiles[0].controls;
+
+    // CKV_AWS_136 has CCIs: CCI-001199 (SC-28), CCI-002475 (SC-28(1))
+    // Should derive NIST control: SC-28
+    const ecr_control = controls[0];
+    expect(ecr_control.tags.nist).to.include('SC-28');
+
+    // CKV_AWS_18 has CCIs: CCI-000068 (AC-17(2)), CCI-001453 (AC-17(2))
+    // Should derive NIST control: AC-17
+    const s3_control = controls[1];
+    expect(s3_control.tags.cci).to.deep.equal(['CCI-000068', 'CCI-001453']);
+    expect(s3_control.tags.nist).to.include('AC-17');
+  });
+
   it('should set correct status based on severity level', () => {
     const mapper = new CheckovMapper(sampleCheckovSarif);
     const hdf = mapper.toHdf();

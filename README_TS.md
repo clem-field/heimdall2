@@ -184,6 +184,24 @@ The mapper generates HDF output with the following structure:
 }
 ```
 
+## CCI to NIST Control Mapping
+
+The mapper automatically derives NIST 800-53 controls from CCI identifiers. Here are the current mappings:
+
+| Checkov Rule | CCI Identifiers | NIST Controls |
+|-------------|-----------------|---------------|
+| CKV_AWS_136 | CCI-001199, CCI-002475 | SC-28 (Encryption at Rest) |
+| CKV_AWS_18 | CCI-000068, CCI-001453 | AC-17 (Remote Access) |
+| CKV_AWS_19 | CCI-001199, CCI-002475 | SC-28 (Encryption at Rest) |
+| CKV_AWS_20 | CCI-000213, CCI-001813 | AC-3 (Access Enforcement), CM-5 (Access Restrictions for Change) |
+| CKV_AWS_21 | CCI-000186 | IA-5 (Authenticator Management) |
+
+The mapping process:
+1. Each Checkov rule ID maps to one or more CCIs (defined in `CheckovCciMappingData.ts`)
+2. Each CCI maps to a NIST control (defined in `CciNistMappingData.ts`)
+3. The mapper extracts the base NIST control (e.g., `SC-28` from `SC-28 (1)`)
+4. Duplicate NIST controls are removed to produce a unique list
+
 ## Extending CCI Mappings
 
 To add more Checkov rule mappings, edit [CheckovCciMappingData.ts](libs/hdf-converters/src/mappings/CheckovCciMappingData.ts):
@@ -197,7 +215,11 @@ export const data: Record<string, string[]> = {
 };
 ```
 
-The mapper will automatically derive NIST controls from the CCI identifiers using the existing `CciNistMappingData`.
+The mapper will automatically derive NIST controls from the CCI identifiers using the existing `CciNistMappingData`. To find the correct CCIs:
+
+1. Look up the NIST control applicable to your Checkov rule
+2. Find corresponding CCIs in the [CCI List](https://csrc.nist.gov/projects/control-correlation-identifier)
+3. Verify the CCIs exist in `CciNistMappingData.ts`
 
 ## Integration with Heimdall
 

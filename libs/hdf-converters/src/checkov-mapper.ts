@@ -61,10 +61,13 @@ function extractResourceType(result: unknown): string {
 function deriveNistFromCCI(ccis: string[]): string[] {
   const nistTags: string[] = [];
   for (const cci of ccis) {
-    // Find the NIST tag that corresponds to this CCI
-    for (const [nistTag, cciList] of Object.entries(CciNistMappingData)) {
-      if (Array.isArray(cciList) && cciList.includes(cci)) {
-        nistTags.push(nistTag);
+    // CciNistMappingData maps CCI -> NIST control string (e.g., "SC-28" or "SC-28 (1)")
+    const nistControl = (CciNistMappingData as Record<string, string>)[cci];
+    if (nistControl) {
+      // Extract base control (e.g., "SC-28" from "SC-28 (1)")
+      const baseControl = nistControl.match(/[A-Z]{2}-\d+/);
+      if (baseControl) {
+        nistTags.push(baseControl[0]);
       }
     }
   }
