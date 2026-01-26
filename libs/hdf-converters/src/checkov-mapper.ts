@@ -140,7 +140,7 @@ export class CheckovMapper extends BaseConverter {
                   const ruleId = _.get(control, 'ruleId');
                   if (typeof ruleId === 'string') {
                     return {
-                      url: `https://docs.bridgecrew.io/docs/${ruleId.toLowerCase()}`
+                      url: `https://docs.bridgecrew.io/docs/${(ruleId as string).toLowerCase()}`
                     };
                   }
                   return {};
