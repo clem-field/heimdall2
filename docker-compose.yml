@@ -20,7 +20,7 @@ services:
   certs:
     image: registry.access.redhat.com/ubi9/ubi:latest
     restart: unless-stopped
-    command: sh -c "sh /etc/pki/ca-trust/source/anchors/mitrecerts.sh && update-ca-trust && tail -f /dev/null"
+    command: sh -c "sh /etc/pki/ca-trust/source/anchors/dodcerts.sh && update-ca-trust && tail -f /dev/null"
     volumes:
       - type: volume
         source: cert_bundles
@@ -30,7 +30,7 @@ services:
         target: /etc/pki/ca-trust/source/anchors/
 
   server:
-    build: .
+    image: mitre/heimdall2:release-latest
     platform: linux/amd64
     restart: unless-stopped
     environment:
@@ -40,8 +40,6 @@ services:
     env_file: .env
     ports:
       - "3000"
-    tmpfs:
-      - /tmp
     volumes:
       - type: volume
         source: cert_bundles
