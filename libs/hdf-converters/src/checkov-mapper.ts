@@ -5,8 +5,7 @@ import {BaseConverter, ILookupPath, MappedTransform} from './base-converter';
 import {data as CheckovCciMappingData} from './mappings/CheckovCciMappingData';
 import {data as CciNistMappingData} from './mappings/CciNistMappingData';
 import {
-  DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS,
-  getCCIsForNISTTags
+  DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS
 } from './utils/global';
 
 const IMPACT_MAPPING: Map<string, number> = new Map([
@@ -14,7 +13,7 @@ const IMPACT_MAPPING: Map<string, number> = new Map([
   ['high', 0.7],
   ['medium', 0.5],
   ['low', 0.3],
-  ['info', 0.0]
+  ['info', 0.1]
 ]);
 
 function impactMapping(severity: unknown): number {
@@ -48,7 +47,7 @@ function deriveNistFromCCI(ccis: string[]): string[] {
   for (const cci of ccis) {
     const nistControl = (CciNistMappingData as Record<string, string>)[cci];
     if (nistControl) {
-      const baseControl = nistControl.match(/[A-Z]{2}-\d+/);
+      const baseControl = /[A-Z]{2}-\d+/.exec(nistControl);
       if (baseControl) {
         nistTags.push(baseControl[0]);
       }
