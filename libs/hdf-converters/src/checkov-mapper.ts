@@ -10,72 +10,84 @@ import {
 } from './utils/global';
 
 const IMPACT_MAPPING: Map<string, number> = new Map([
-  ['error', 0.7],
-  ['warning', 0.5],
-  ['note', 0.3]
+  ['critical', 0.9],
+  ['high', 0.7],
+  ['medium', 0.5],
+  ['low', 0.3],
+  ['info', 0.0]
 ]);
 
-const MESSAGE_TEXT = 'message.text';
-
 function impactMapping(severity: unknown): number {
-  if (typeof severity === 'string' || typeof severity === 'number') {
-    return IMPACT_MAPPING.get(severity.toString().toLowerCase()) || 0.5;
-  } else {
-    return 0.5;
+  if (typeof severity === 'string') {
+    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? 0.5;
   }
+  return 0.5;
 }
 
-function formatCodeDesc(input: unknown): string {
-  const output = [];
-  const uri = _.get(input, 'artifactLocation.uri');
-  const startLine = _.get(input, 'region.startLine');
-  const endLine = _.get(input, 'region.endLine');
-  const snippet = _.get(input, 'region.snippet.text');
+function formatCodeDesc(check: Record<string, unknown>): string {
+  const filePath = _.get(check, 'file_path') as string | undefined;
+  const lineRange = _.get(check, 'file_line_range') as number[] | undefined;
+  const resource = _.get(check, 'resource') as string | undefined;
 
-  if (uri) {
-    output.push(`File: ${uri}`);
+  const parts: string[] = [];
+  if (resource) {
+    parts.push(`Resource: ${resource}`);
   }
-  if (startLine) {
-    output.push(`Line: ${startLine}`);
-    if (endLine && endLine !== startLine) {
-      output.push(`- ${endLine}`);
-    }
+  if (filePath) {
+    parts.push(`File: ${filePath}`);
   }
-  if (snippet) {
-    output.push(`\nCode: ${snippet}`);
+  if (lineRange && Array.isArray(lineRange) && lineRange.length >= 2) {
+    parts.push(`Line: ${lineRange[0]}-${lineRange[1]}`);
   }
 
-  return output.length > 0 ? output.join(' ') : 'Checkov security check';
-}
-
-function extractResourceType(result: unknown): string {
-  const snippet =
-    _.get(result, 'locations[0].physicalLocation.region.snippet.text') || '';
-  if (typeof snippet === 'string') {
-    const match = snippet.match(/resource\s+"([^"]+)"/);
-    return match ? match[1] : 'unknown';
-  }
-  return 'unknown';
+  return parts.length > 0 ? parts.join(' | ') : 'Checkov security check';
 }
 
 function deriveNistFromCCI(ccis: string[]): string[] {
   const nistTags: string[] = [];
   for (const cci of ccis) {
-    // CciNistMappingData maps CCI -> NIST control string (e.g., "SC-28" or "SC-28 (1)")
     const nistControl = (CciNistMappingData as Record<string, string>)[cci];
     if (nistControl) {
-      // Extract base control (e.g., "SC-28" from "SC-28 (1)")
       const baseControl = nistControl.match(/[A-Z]{2}-\d+/);
       if (baseControl) {
         nistTags.push(baseControl[0]);
       }
     }
   }
-  // Return unique NIST tags, or default if none found
   const uniqueTags = [...new Set(nistTags)];
   return uniqueTags.length > 0
     ? uniqueTags
     : DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
+}
+
+interface CheckovCheck {
+  check_id: string;
+  check_name: string;
+  check_result: {result: string};
+  file_path?: string;
+  file_line_range?: number[];
+  resource?: string;
+  resource_address?: string;
+  severity?: string;
+  guideline?: string;
+  bc_check_id?: string;
+  code_block?: Array<[number, string]>;
+}
+
+function preprocessCheckovJson(
+  data: Record<string, unknown>
+): Record<string, unknown> {
+  const results = _.get(data, 'results') as Record<string, unknown>;
+  const passedChecks = (_.get(results, 'passed_checks') || []) as CheckovCheck[];
+  const failedChecks = (_.get(results, 'failed_checks') || []) as CheckovCheck[];
+  const skippedChecks = (_.get(results, 'skipped_checks') || []) as CheckovCheck[];
+
+  const allChecks = [...passedChecks, ...failedChecks, ...skippedChecks];
+
+  return {
+    ...data,
+    all_checks: allChecks
+  };
 }
 
 export class CheckovMapper extends BaseConverter {
@@ -94,33 +106,40 @@ export class CheckovMapper extends BaseConverter {
     statistics: {},
     profiles: [
       {
-        path: 'runs',
         name: 'Checkov',
-        version: {path: '$.version'},
-        title: 'Checkov Infrastructure Security Checks',
+        version: {path: '$.summary.checkov_version'},
+        title: {
+          path: '$.check_type',
+          transformer: (checkType: unknown): string => {
+            if (typeof checkType === 'string') {
+              return `Checkov ${checkType} Security Scan`;
+            }
+            return 'Checkov Infrastructure Security Checks';
+          }
+        },
         supports: [],
         attributes: [],
         groups: [],
         status: 'loaded',
         controls: [
           {
-            path: 'results',
+            path: 'all_checks',
             key: 'id',
             tags: {
               cci: {
-                path: 'ruleId',
-                transformer: (ruleId: unknown): string[] => {
-                  if (typeof ruleId === 'string') {
-                    return CheckovCciMappingData[ruleId] || [];
+                path: 'check_id',
+                transformer: (checkId: unknown): string[] => {
+                  if (typeof checkId === 'string') {
+                    return CheckovCciMappingData[checkId] || [];
                   }
                   return [];
                 }
               },
               nist: {
-                path: 'ruleId',
-                transformer: (ruleId: unknown): string[] => {
-                  if (typeof ruleId === 'string') {
-                    const ccis = CheckovCciMappingData[ruleId] || [];
+                path: 'check_id',
+                transformer: (checkId: unknown): string[] => {
+                  if (typeof checkId === 'string') {
+                    const ccis = CheckovCciMappingData[checkId] || [];
                     return ccis.length > 0
                       ? deriveNistFromCCI(ccis)
                       : DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
@@ -128,19 +147,29 @@ export class CheckovMapper extends BaseConverter {
                   return DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
                 }
               },
-              severity: {path: 'level'},
-              checkov_id: {path: 'ruleId'},
-              resource_type: {
-                transformer: (control: unknown) => extractResourceType(control)
-              }
+              severity: {path: 'severity'},
+              checkov_id: {path: 'check_id'},
+              resource: {path: 'resource'}
             },
             refs: [
               {
-                transformer: (control: unknown) => {
-                  const ruleId = _.get(control, 'ruleId');
-                  if (typeof ruleId === 'string') {
+                transformer: (check: unknown) => {
+                  const guideline = _.get(check, 'guideline') as
+                    | string
+                    | null
+                    | undefined;
+                  if (
+                    typeof guideline === 'string' &&
+                    guideline.length > 0
+                  ) {
+                    return {url: guideline};
+                  }
+                  const checkId = _.get(check, 'check_id') as
+                    | string
+                    | undefined;
+                  if (typeof checkId === 'string') {
                     return {
-                      url: `https://docs.bridgecrew.io/docs/${(ruleId as string).toLowerCase()}`
+                      url: `https://docs.bridgecrew.io/docs/${checkId.toLowerCase()}`
                     };
                   }
                   return {};
@@ -148,60 +177,50 @@ export class CheckovMapper extends BaseConverter {
               }
             ],
             source_location: {
-              transformer: (control: unknown) => {
+              transformer: (check: unknown) => {
+                const filePath = _.get(check, 'file_path') as
+                  | string
+                  | undefined;
+                const lineRange = _.get(check, 'file_line_range') as
+                  | number[]
+                  | undefined;
                 return _.omitBy(
                   {
-                    ref: _.get(
-                      control,
-                      'locations[0].physicalLocation.artifactLocation.uri'
-                    ),
-                    line: _.get(
-                      control,
-                      'locations[0].physicalLocation.region.startLine'
-                    )
+                    ref: filePath,
+                    line: lineRange?.[0]
                   },
-                  (value) => value === '' || value === undefined
+                  (value) =>
+                    value === undefined || value === null
                 );
               }
             },
-            title: {
-              path: MESSAGE_TEXT,
-              transformer: (text: unknown): string => {
-                if (typeof text === 'string') {
-                  // Extract just the title part if it contains a colon
-                  return text.split(': ')[0] || text;
-                } else {
-                  return '';
-                }
-              }
-            },
-            id: {path: 'ruleId'},
-            desc: {
-              path: MESSAGE_TEXT,
-              transformer: (text: unknown): string => {
-                if (typeof text === 'string') {
-                  // If there's a colon, use the part after it as description
-                  // Otherwise use the whole text
-                  const parts = text.split(': ');
-                  return parts.length > 1 ? parts.slice(1).join(': ') : text;
-                } else {
-                  return '';
-                }
-              }
-            },
-            impact: {path: 'level', transformer: impactMapping},
+            title: {path: 'check_name'},
+            id: {path: 'check_id'},
+            desc: {path: 'check_name'},
+            impact: {path: 'severity', transformer: impactMapping},
             code: {
-              transformer: (vulnerability: Record<string, unknown>): string =>
-                JSON.stringify(vulnerability, null, 2)
+              transformer: (check: Record<string, unknown>): string => {
+                const codeBlock = _.get(check, 'code_block') as
+                  | Array<[number, string]>
+                  | undefined;
+                if (Array.isArray(codeBlock)) {
+                  return codeBlock
+                    .map(([line, code]) => `${line}: ${code}`)
+                    .join('');
+                }
+                return JSON.stringify(check, null, 2);
+              }
             },
             results: [
               {
                 status: {
-                  path: 'level',
-                  transformer: (level: unknown): ExecJSON.ControlResultStatus => {
-                    if (level === 'error') {
-                      return ExecJSON.ControlResultStatus.Failed;
-                    } else if (level === 'warning') {
+                  path: 'check_result.result',
+                  transformer: (
+                    result: unknown
+                  ): ExecJSON.ControlResultStatus => {
+                    if (result === 'PASSED') {
+                      return ExecJSON.ControlResultStatus.Passed;
+                    } else if (result === 'FAILED') {
                       return ExecJSON.ControlResultStatus.Failed;
                     } else {
                       return ExecJSON.ControlResultStatus.Skipped;
@@ -209,10 +228,16 @@ export class CheckovMapper extends BaseConverter {
                   }
                 },
                 code_desc: {
-                  path: 'locations[0].physicalLocation',
-                  transformer: formatCodeDesc
+                  transformer: (check: Record<string, unknown>): string =>
+                    formatCodeDesc(check)
                 },
-                message: {path: MESSAGE_TEXT},
+                message: {
+                  transformer: (check: Record<string, unknown>): string => {
+                    const result = _.get(check, 'check_result.result');
+                    const name = _.get(check, 'check_name');
+                    return `${result}: ${name}`;
+                  }
+                },
                 start_time: {
                   transformer: (): string => new Date().toISOString()
                 }
@@ -225,19 +250,13 @@ export class CheckovMapper extends BaseConverter {
     ],
     passthrough: {
       transformer: (data: Record<string, unknown>): Record<string, unknown> => {
-        let runsData = _.get(data, 'runs');
-        if (Array.isArray(runsData)) {
-          runsData = runsData.map((run: Record<string, unknown>) =>
-            _.omit(run, ['results'])
-          );
-        }
         return {
           auxiliary_data: [
             {
               name: 'Checkov',
               data: {
-                $schema: _.get(data, '$schema'),
-                runs: runsData
+                check_type: _.get(data, 'check_type'),
+                summary: _.get(data, 'summary')
               }
             }
           ],
@@ -248,7 +267,7 @@ export class CheckovMapper extends BaseConverter {
   };
 
   constructor(checkovJson: string, withRaw = false) {
-    super(JSON.parse(checkovJson));
+    super(preprocessCheckovJson(JSON.parse(checkovJson)));
     this.withRaw = withRaw;
   }
 }
