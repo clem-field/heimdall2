@@ -31,7 +31,6 @@ services:
 
   server:
     image: mitre/heimdall2:release-latest
-    platform: linux/amd64
     restart: unless-stopped
     environment:
       - NODE_ENV=production
