@@ -63,8 +63,7 @@ import FileList from '@/components/global/upload_tabs/aws/FileList.vue';
 import {SnackbarModule} from '@/store/snackbar';
 import {LocalStorageVal} from '@/utilities/helper_util';
 import {requireFieldRule} from '@/utilities/upload_util';
-import {checkSplunkCredentials} from '@mitre/hdf-converters/src/utils/splunk-tools';
-import {SplunkConfig} from '@mitre/hdf-converters/types/splunk-config-types';
+import {checkSplunkCredentials, SplunkConfig} from '@mitre/hdf-converters';
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import {Prop} from 'vue-property-decorator';
@@ -125,7 +124,13 @@ export default class AuthStep extends Vue {
       if (error !== 'Failed to login - Incorrect username or password') {
         this.$emit('error');
       }
-      SnackbarModule.failure(error);
+      SnackbarModule.failure(
+        error instanceof Error
+          ? error.message
+          : typeof error === 'string'
+            ? error
+            : String(error)
+      );
     }
   }
 

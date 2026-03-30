@@ -1,10 +1,11 @@
 import fs from 'fs';
-import {ZapMapper} from '../../../src/zap-mapper';
+import {describe, expect, it} from 'vitest';
+import {ZapResults} from '../../../src/zap-mapper';
 import {omitVersions} from '../../utils';
 
 describe('zap_mapper', () => {
-  it('Successfully converts webgoat.json', () => {
-    const mapper = new ZapMapper(
+  it('Successfully converts webgoat.json', async () => {
+    const mapper = new ZapResults(
       fs.readFileSync(
         'sample_jsons/zap_mapper/sample_input_report/webgoat.json',
         {encoding: 'utf-8'}
@@ -14,10 +15,10 @@ describe('zap_mapper', () => {
 
     // fs.writeFileSync(
     //   'sample_jsons/zap_mapper/zap-webgoat-hdf.json',
-    //   JSON.stringify(mapper.toHdf(), null, 2)
+    //   JSON.stringify(await mapper.toHdf(), null, 2)
     // );
 
-    expect(omitVersions(mapper.toHdf())).toEqual(
+    expect(omitVersions(await mapper.toHdf())).toEqual(
       omitVersions(
         JSON.parse(
           fs.readFileSync('sample_jsons/zap_mapper/zap-webgoat-hdf.json', {
@@ -27,8 +28,8 @@ describe('zap_mapper', () => {
       )
     );
   });
-  it('Successfully converts zero.webappsecurity.json', () => {
-    const mapper = new ZapMapper(
+  it('Successfully converts zero.webappsecurity.json', async () => {
+    const mapper = new ZapResults(
       fs.readFileSync(
         'sample_jsons/zap_mapper/sample_input_report/zero.webappsecurity.json',
         {encoding: 'utf-8'}
@@ -38,10 +39,10 @@ describe('zap_mapper', () => {
 
     // fs.writeFileSync(
     //   'sample_jsons/zap_mapper/zap-webappsecurity-hdf.json',
-    //   JSON.stringify(mapper.toHdf(), null, 2)
+    //   JSON.stringify(await mapper.toHdf(), null, 2)
     // );
 
-    expect(omitVersions(mapper.toHdf())).toEqual(
+    expect(omitVersions(await mapper.toHdf())).toEqual(
       omitVersions(
         JSON.parse(
           fs.readFileSync(
@@ -55,8 +56,8 @@ describe('zap_mapper', () => {
 });
 
 describe('zap_mapper', () => {
-  it('Successfully converts webgoat.json using withRaw flag', () => {
-    const mapper = new ZapMapper(
+  it('Successfully converts webgoat.json using withRaw flag', async () => {
+    const mapper = new ZapResults(
       fs.readFileSync(
         'sample_jsons/zap_mapper/sample_input_report/webgoat.json',
         {encoding: 'utf-8'}
@@ -67,10 +68,10 @@ describe('zap_mapper', () => {
 
     // fs.writeFileSync(
     //   'sample_jsons/zap_mapper/zap-webgoat-hdf-withraw.json',
-    //   JSON.stringify(mapper.toHdf(), null, 2)
+    //   JSON.stringify(await mapper.toHdf(), null, 2)
     // );
 
-    expect(omitVersions(mapper.toHdf())).toEqual(
+    expect(omitVersions(await mapper.toHdf())).toEqual(
       omitVersions(
         JSON.parse(
           fs.readFileSync(
@@ -83,8 +84,8 @@ describe('zap_mapper', () => {
       )
     );
   });
-  it('Successfully converts zero.webappsecurity.json using withRaw flag', () => {
-    const mapper = new ZapMapper(
+  it('Successfully converts zero.webappsecurity.json using withRaw flag', async () => {
+    const mapper = new ZapResults(
       fs.readFileSync(
         'sample_jsons/zap_mapper/sample_input_report/zero.webappsecurity.json',
         {encoding: 'utf-8'}
@@ -95,10 +96,10 @@ describe('zap_mapper', () => {
 
     // fs.writeFileSync(
     //   'sample_jsons/zap_mapper/zap-webappsecurity-hdf-withraw.json',
-    //   JSON.stringify(mapper.toHdf(), null, 2)
+    //   JSON.stringify(await mapper.toHdf(), null, 2)
     // );
 
-    expect(omitVersions(mapper.toHdf())).toEqual(
+    expect(omitVersions(await mapper.toHdf())).toEqual(
       omitVersions(
         JSON.parse(
           fs.readFileSync(
