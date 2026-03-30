@@ -1,10 +1,11 @@
 import fs from 'fs';
 import {ExecJSON} from 'inspecjs';
+import {describe, expect, it} from 'vitest';
 import {NessusResults} from '../../../src/nessus-mapper';
 import {omitVersions} from '../../utils';
 
 describe('nessus_mapper', () => {
-  it('Successfully converts Nessus data', () => {
+  it('Successfully converts Nessus data', async () => {
     const mapper = new NessusResults(
       fs.readFileSync(
         'sample_jsons/nessus_mapper/sample_input_report/sample.nessus',
@@ -12,7 +13,7 @@ describe('nessus_mapper', () => {
       )
     );
 
-    const converted = mapper.toHdf();
+    const converted = await mapper.toHdf();
 
     /*
     fs.writeFileSync(
@@ -60,7 +61,7 @@ describe('nessus_mapper', () => {
 });
 
 describe('nessus_mapper_withraw', () => {
-  it('Successfully converts withRaw flagged Nessus data', () => {
+  it('Successfully converts withRaw flagged Nessus data', async () => {
     const mapper = new NessusResults(
       fs.readFileSync(
         'sample_jsons/nessus_mapper/sample_input_report/sample.nessus',
@@ -69,7 +70,7 @@ describe('nessus_mapper_withraw', () => {
       true
     );
 
-    const converted = mapper.toHdf();
+    const converted = await mapper.toHdf();
 
     /*
     fs.writeFileSync(
