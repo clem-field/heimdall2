@@ -68,7 +68,7 @@ const IMPACT_MAPPING: Map<string, number> = new Map([
   ['high', 0.7],
   ['medium', 0.5],
   ['low', 0.3],
-  ['none', 0.0]
+  ['none', 0]
 ]);
 
 function impactMapping(severity: unknown): number {
@@ -254,7 +254,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
           path: 'check_type',
           transformer: (checkType: unknown): string => {
             if (_.isString(checkType)) {
-              return `Checkov ${checkType} Security Scan`;
+              return `Checkov ${checkType} Security Scan`; // NOSONAR - checkType verified as string above
             }
             return 'Checkov Infrastructure Security Checks';
           }

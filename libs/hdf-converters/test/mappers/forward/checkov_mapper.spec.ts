@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import {ExecJSON} from 'inspecjs';
 import {describe, expect, it} from 'vitest';
 import {CheckovMapper} from '../../../src/checkov-mapper';
@@ -13,6 +13,7 @@ describe('checkov_mapper', () => {
       )
     );
 
+    // Uncomment to regenerate baseline: // NOSONAR
     // fs.writeFileSync(
     //   'sample_jsons/checkov-mapper/checkov_json-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
@@ -39,6 +40,7 @@ describe('checkov_mapper', () => {
       )
     );
 
+    // Uncomment to regenerate baseline: // NOSONAR
     // fs.writeFileSync(
     //   'sample_jsons/checkov-mapper/checkov_sample-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
@@ -63,6 +65,7 @@ describe('checkov_mapper', () => {
       true
     );
 
+    // Uncomment to regenerate baseline: // NOSONAR
     // fs.writeFileSync(
     //   'sample_jsons/checkov-mapper/checkov_json-withraw-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
