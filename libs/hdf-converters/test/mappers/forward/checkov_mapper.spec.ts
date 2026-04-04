@@ -63,6 +63,11 @@ describe('checkov_mapper', () => {
       true
     );
 
+    // fs.writeFileSync(
+    //   'sample_jsons/checkov-mapper/checkov_json-withraw-hdf.json',
+    //   JSON.stringify(mapper.toHdf(), null, 2)
+    // );
+
     it('should include raw data in passthrough', () => {
       const hdf = mapper.toHdf() as ExecJSON.Execution & {
         passthrough: Record<string, unknown>;
