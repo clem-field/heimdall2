@@ -41,7 +41,7 @@
           },
           "title": "Ensure no hard coded AWS access key and secret key exists in provider",
           "id": "CKV_AWS_41",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"check_class\": \"checkov.terraform.checks.provider.credentials\",\n  \"file_abs_path\": \"/src/main.tf\",\n  \"repo_file_path\": \"/main.tf\",\n  \"definition_context_file_path\": \"/main.tf\",\n  \"details\": []\n}",
           "results": [
             {
@@ -76,7 +76,7 @@
           },
           "title": "Ensure that Load Balancer has deletion protection enabled",
           "id": "CKV_AWS_150",
-          "impact": 0.89,
+          "impact": 0.8,
           "code": "{\n  \"entity_tags\": {\n    \"Name\": \"test-alb\"\n  },\n  \"caller_file_path\": \"/main.tf\",\n  \"caller_file_line_range\": [\n    5,\n    10\n  ],\n  \"benchmarks\": {\n    \"CIS AWS\": [\n      \"2.1.1\"\n    ]\n  },\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ALBDeletionProtection\",\n  \"file_abs_path\": \"/src/alb/main.tf\",\n  \"repo_file_path\": \"/alb/main.tf\",\n  \"definition_context_file_path\": \"/alb/main.tf\",\n  \"details\": []\n}",
           "results": [
             {
@@ -111,7 +111,7 @@
           },
           "title": "Ensure the S3 bucket has access logging enabled",
           "id": "CKV_AWS_18",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"check_class\": \"checkov.terraform.checks.resource.aws.S3AccessLogs\",\n  \"file_abs_path\": \"/src/s3/main.tf\",\n  \"repo_file_path\": \"/s3/main.tf\",\n  \"definition_context_file_path\": \"/s3/main.tf\",\n  \"details\": []\n}",
           "results": [
             {
@@ -123,7 +123,7 @@
           ]
         }
       ],
-      "sha256": "f1fde38c5035b3961933ee19cb32c4b5b4311668f04f61cb39d55ed52c9c4904"
+      "sha256": "8817ff646cb720928e5e66a31bb918f92aac4f291f3bfbc709a65b6ebda27bf5"
     }
   ],
   "passthrough": {

@@ -163,9 +163,9 @@ describe('checkov_mapper', () => {
       const hdf = mapper.toHdf();
       const controls = hdf.profiles[0].controls;
       const highControl = controls.find((c) => c.id === 'CKV_AWS_150');
-      expect(highControl!.impact).to.equal(0.89);
+      expect(highControl!.impact).to.equal(0.8);
       const nullSevControl = controls.find((c) => c.id === 'CKV_AWS_41');
-      expect(nullSevControl!.impact).to.equal(0.69); // null severity defaults to medium
+      expect(nullSevControl!.impact).to.equal(0.6); // null severity defaults to medium
     });
 
     it('should include evaluated_keys and guideline in message', () => {

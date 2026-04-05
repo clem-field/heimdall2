@@ -41,7 +41,7 @@
           },
           "title": "Ensure no hard coded AWS access key and secret key exists in provider",
           "id": "CKV_AWS_41",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.provider.aws.credentials\",\n  \"details\": []\n}",
           "results": [
             {
@@ -78,7 +78,7 @@
           },
           "title": "Verify logging preference for ACM certificates",
           "id": "CKV_AWS_234",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ACMCertSetLoggingPreference\",\n  \"details\": []\n}",
           "results": [
             {
@@ -113,7 +113,7 @@
           },
           "title": "Ensure that ALB is configured with defensive or strictest desync mitigation mode",
           "id": "CKV_AWS_328",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ALBDesyncMode\",\n  \"details\": []\n}",
           "results": [
             {
@@ -150,7 +150,7 @@
           },
           "title": "Ensure ALB protocol is HTTPS",
           "id": "CKV_AWS_2",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ALBListenerHTTPS\",\n  \"details\": []\n}",
           "results": [
             {
@@ -191,7 +191,7 @@
           },
           "title": "Ensure HTTP HTTPS Target group defines Healthcheck",
           "id": "CKV_AWS_261",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.LBTargetGroupsDefinesHealthcheck\",\n  \"details\": []\n}",
           "results": [
             {
@@ -228,7 +228,7 @@
           },
           "title": "Ensure ECS Cluster enables logging of ECS Exec",
           "id": "CKV_AWS_223",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECSClusterLoggingEnabled\",\n  \"details\": []\n}",
           "results": [
             {
@@ -263,7 +263,7 @@
           },
           "title": "Ensure ECS Fargate services run on the latest Fargate platform version",
           "id": "CKV_AWS_332",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECSServiceFargateLatest\",\n  \"details\": []\n}",
           "results": [
             {
@@ -298,7 +298,7 @@
           },
           "title": "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy",
           "id": "CKV_AWS_274",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMManagedAdminPolicy\",\n  \"details\": []\n}",
           "results": [
             {
@@ -341,7 +341,7 @@
           },
           "title": "Ensure AWS IAM policy does not allow assume role permission across all services",
           "id": "CKV_AWS_61",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMRoleAllowAssumeFromAccount\",\n  \"details\": []\n}",
           "results": [
             {
@@ -376,7 +376,7 @@
           },
           "title": "Ensure IAM role allows only specific services or principals to assume it",
           "id": "CKV_AWS_60",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMRoleAllowsPublicAssume\",\n  \"details\": []\n}",
           "results": [
             {
@@ -413,7 +413,7 @@
           },
           "title": "Ensure IAM policies does not allow data exfiltration",
           "id": "CKV_AWS_288",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMDataExfiltration\",\n  \"details\": []\n}",
           "results": [
             {
@@ -448,7 +448,7 @@
           },
           "title": "Ensure IAM policies does not allow write access without constraints",
           "id": "CKV_AWS_290",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMWriteAccess\",\n  \"details\": []\n}",
           "results": [
             {
@@ -483,7 +483,7 @@
           },
           "title": "Ensure IAM policies does not allow credentials exposure",
           "id": "CKV_AWS_287",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMCredentialsExposure\",\n  \"details\": []\n}",
           "results": [
             {
@@ -518,7 +518,7 @@
           },
           "title": "Ensure no IAM policies documents allow \"*\" as a statement's actions",
           "id": "CKV_AWS_63",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMStarActionPolicyDocument\",\n  \"details\": []\n}",
           "results": [
             {
@@ -553,7 +553,7 @@
           },
           "title": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
           "id": "CKV_AWS_289",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMPermissionsManagement\",\n  \"details\": []\n}",
           "results": [
             {
@@ -590,7 +590,7 @@
           },
           "title": "Ensure IAM policies that allow full \"*-*\" administrative privileges are not created",
           "id": "CKV_AWS_62",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMAdminPolicyDocument\",\n  \"details\": []\n}",
           "results": [
             {
@@ -625,7 +625,7 @@
           },
           "title": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
           "id": "CKV_AWS_355",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMStarResourcePolicyDocument\",\n  \"details\": []\n}",
           "results": [
             {
@@ -660,7 +660,7 @@
           },
           "title": "Ensure IAM policies does not allow privilege escalation",
           "id": "CKV_AWS_286",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.IAMPrivilegeEscalation\",\n  \"details\": []\n}",
           "results": [
             {
@@ -695,7 +695,7 @@
           },
           "title": "Ensure that CloudWatch Log Group specifies retention days",
           "id": "CKV_AWS_66",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetention\",\n  \"details\": []\n}",
           "results": [
             {
@@ -732,7 +732,7 @@
           },
           "title": "Ensure CloudWatch log groups retains logs for at least 1 year",
           "id": "CKV_AWS_338",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear\",\n  \"details\": []\n}",
           "results": [
             {
@@ -767,7 +767,7 @@
           },
           "title": "Ensure that RDS PostgreSQL instances use a non vulnerable version with the log_fdw extension (https://aws.amazon.com/security/security-bulletins/AWS-2022-004/)",
           "id": "CKV_AWS_250",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSPostgreSQLLogFDWExtension\",\n  \"details\": []\n}",
           "results": [
             {
@@ -804,7 +804,7 @@
           },
           "title": "Ensure RDS Performance Insights are encrypted using KMS CMKs",
           "id": "CKV_AWS_354",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSInstancePerfInsightsEncryptionWithCMK\",\n  \"details\": []\n}",
           "results": [
             {
@@ -837,7 +837,7 @@
           },
           "title": "Ensure AWS Aurora PostgreSQL is not exposed to local file read vulnerability",
           "id": "CKV_AWS_388",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.UnpatchedAuroraPostgresDB\",\n  \"details\": []\n}",
           "results": [
             {
@@ -872,7 +872,7 @@
           },
           "title": "Ensure that RDS instances has backup policy",
           "id": "CKV_AWS_133",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.DBInstanceBackupRetentionPeriod\",\n  \"details\": []\n}",
           "results": [
             {
@@ -907,7 +907,7 @@
           },
           "title": "Ensure DB instance gets all minor upgrades automatically",
           "id": "CKV_AWS_226",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.DBInstanceMinorUpgrade\",\n  \"details\": []\n}",
           "results": [
             {
@@ -944,7 +944,7 @@
           },
           "title": "Ensure all data stored in RDS is not publicly accessible",
           "id": "CKV_AWS_17",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSPubliclyAccessible\",\n  \"details\": []\n}",
           "results": [
             {
@@ -979,7 +979,7 @@
           },
           "title": "Ensure RDS uses a modern CaCert",
           "id": "CKV_AWS_211",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSCACertIsRecent\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1014,7 +1014,7 @@
           },
           "title": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80",
           "id": "CKV_AWS_260",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress80\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1055,7 +1055,7 @@
           },
           "title": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
           "id": "CKV_AWS_24",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1102,7 +1102,7 @@
           },
           "title": "Ensure every security group and rule has a description",
           "id": "CKV_AWS_23",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1149,7 +1149,7 @@
           },
           "title": "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1",
           "id": "CKV_AWS_277",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngressAny\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1196,7 +1196,7 @@
           },
           "title": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389",
           "id": "CKV_AWS_25",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress3389\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1245,7 +1245,7 @@
           },
           "title": "Ensure KMS key is enabled",
           "id": "CKV_AWS_227",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.KMSKeyIsEnabled\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1282,7 +1282,7 @@
           },
           "title": "Ensure KMS key policy does not contain wildcard (*) principal",
           "id": "CKV_AWS_33",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.KMSKeyWildcardPrincipal\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1317,7 +1317,7 @@
           },
           "title": "Ensure rotation for customer created CMKs is enabled",
           "id": "CKV_AWS_7",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.KMSRotation\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1354,7 +1354,7 @@
           },
           "title": "Ensure that Secrets Manager secret is encrypted using KMS CMK",
           "id": "CKV_AWS_149",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecretManagerSecretEncrypted\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1407,7 +1407,7 @@
           },
           "title": "Ensure that the Execution Role ARN and the Task Role ARN are different in ECS Task definitions",
           "id": "CKV_AWS_249",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECSTaskDefinitionRoleCheck\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1442,7 +1442,7 @@
           },
           "title": "Ensure Encryption in transit is enabled for EFS volumes in ECS Task definitions",
           "id": "CKV_AWS_97",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECSTaskDefinitionEFSVolumeEncryption\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1477,7 +1477,7 @@
           },
           "title": "Ensure VPC subnets do not assign public IP by default",
           "id": "CKV_AWS_130",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SubnetPublicIP\",\n  \"details\": []\n}",
           "results": [
             {
@@ -1518,7 +1518,7 @@
           },
           "title": "Ensure AWS route table with VPC peering does not contain routes overly permissive to all traffic",
           "id": "CKV2_AWS_44",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1559,7 +1559,7 @@
           },
           "title": "Ensure that Security Groups are attached to another resource",
           "id": "CKV2_AWS_5",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-db-rds-sg\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"connected_node\": {\n    \"code_block\": [],\n    \"file_path\": \"/tf_checkov.json\",\n    \"file_line_range\": [\n      0,\n      0\n    ],\n    \"resource\": \"aws_db_instance.main\",\n    \"entity_tags\": {\n      \"Name\": \"risk-sentinel-db-db\",\n      \"__file__\": \"tf_checkov.json\",\n      \"__startline__\": 1,\n      \"__endline__\": 1,\n      \"start_line\": 0,\n      \"end_line\": 0\n    },\n    \"evaluations\": null,\n    \"file_abs_path\": \"tf_checkov.json\",\n    \"resource_address\": \"module.rds.aws_db_instance.main\"\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1596,7 +1596,7 @@
           },
           "title": "Ensure that ALB redirects HTTP requests into HTTPS ones",
           "id": "CKV2_AWS_20",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-alb\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"connected_node\": {\n    \"code_block\": [],\n    \"file_path\": \"/tf_checkov.json\",\n    \"file_line_range\": [\n      0,\n      0\n    ],\n    \"resource\": \"aws_lb_listener.https\",\n    \"entity_tags\": null,\n    \"evaluations\": null,\n    \"file_abs_path\": \"tf_checkov.json\",\n    \"resource_address\": \"module.alb.aws_lb_listener.https\"\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1631,7 +1631,7 @@
           },
           "title": "Ensure AWS Managed IAMFullAccess IAM policy is not used.",
           "id": "CKV2_AWS_56",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-task-exec-role\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1672,7 +1672,7 @@
           },
           "title": "AWS NAT Gateways should be utilized for the default route",
           "id": "CKV2_AWS_35",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1715,7 +1715,7 @@
           },
           "title": "Ensure Domain Name System (DNS) query logging is enabled for Amazon Route 53 hosted zones",
           "id": "CKV2_AWS_39",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-hosted-zone\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1750,7 +1750,7 @@
           },
           "title": "Ensure AWS RDS database instance configured with encryption in transit",
           "id": "CKV2_AWS_69",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-db-db\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1787,7 +1787,7 @@
           },
           "title": "Ensure AWS Load Balancers use strong ciphers",
           "id": "CKV2_AWS_74",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1822,7 +1822,7 @@
           },
           "title": "Ensure AWS ALB attached WAFv2 WebACL is configured with AMR for Log4j Vulnerability",
           "id": "CKV2_AWS_76",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-alb\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"benchmarks\": {},\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1857,7 +1857,7 @@
           },
           "title": "Ensure AWS Load Balancer doesn't use HTTP protocol",
           "id": "CKV_AWS_378",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-tg\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"connected_node\": {\n    \"code_block\": [],\n    \"file_path\": \"/tf_checkov.json\",\n    \"file_line_range\": [\n      0,\n      0\n    ],\n    \"resource\": \"aws_lb_listener.https\",\n    \"entity_tags\": null,\n    \"evaluations\": null,\n    \"file_abs_path\": \"tf_checkov.json\",\n    \"resource_address\": \"module.alb.aws_lb_listener.https\"\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1894,7 +1894,7 @@
           },
           "title": "Ensure that load balancer is using at least TLS 1.2",
           "id": "CKV_AWS_103",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1931,7 +1931,7 @@
           },
           "title": "Ensure AWS IAM policy does not allow full IAM privileges",
           "id": "CKV2_AWS_40",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -1966,7 +1966,7 @@
           },
           "title": "Ensure that Load Balancer has deletion protection enabled",
           "id": "CKV_AWS_150",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.LBDeletionProtection\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2003,7 +2003,7 @@
           },
           "title": "Ensure the ELBv2 (Application/Network) has access logging enabled",
           "id": "CKV_AWS_91",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ELBv2AccessLogs\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2038,7 +2038,7 @@
           },
           "title": "Ensure that ALB drops HTTP headers",
           "id": "CKV_AWS_131",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ALBDropHttpHeaders\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2075,7 +2075,7 @@
           },
           "title": "Ensure ECR image scanning on push is enabled",
           "id": "CKV_AWS_163",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECRImageScanning\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2142,7 +2142,7 @@
           },
           "title": "Ensure that ECR repositories are encrypted using KMS",
           "id": "CKV_AWS_136",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2209,7 +2209,7 @@
           },
           "title": "Ensure ECR Image Tags are immutable",
           "id": "CKV_AWS_51",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECRImmutableTags\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2274,7 +2274,7 @@
           },
           "title": "Ensure container insights are enabled on ECS cluster",
           "id": "CKV_AWS_65",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECSClusterContainerInsights\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2311,7 +2311,7 @@
           },
           "title": "Ensure ECS services do not have public IP addresses assigned to them automatically",
           "id": "CKV_AWS_333",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.ECSServicePublicIP\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2346,7 +2346,7 @@
           },
           "title": "Ensure all data stored in the SNS topic is encrypted",
           "id": "CKV_AWS_26",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SNSTopicEncryption\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2383,7 +2383,7 @@
           },
           "title": "Ensure that CloudWatch Log Group is encrypted by KMS",
           "id": "CKV_AWS_158",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2418,7 +2418,7 @@
           },
           "title": "Ensure RDS database has IAM authentication enabled",
           "id": "CKV_AWS_161",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSIAMAuthentication\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2453,7 +2453,7 @@
           },
           "title": "Ensure that AWS database instances have deletion protection enabled",
           "id": "CKV_AWS_293",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSInstanceDeletionProtection\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2488,7 +2488,7 @@
           },
           "title": "Ensure that RDS instances have performance insights enabled",
           "id": "CKV_AWS_353",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSInstancePerformanceInsights\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2525,7 +2525,7 @@
           },
           "title": "Ensure that RDS instances have Multi-AZ enabled",
           "id": "CKV_AWS_157",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSMultiAZEnabled\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2562,7 +2562,7 @@
           },
           "title": "Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled",
           "id": "CKV_AWS_129",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.DBInstanceLogging\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2599,7 +2599,7 @@
           },
           "title": "Ensure that enhanced monitoring is enabled for Amazon RDS instances",
           "id": "CKV_AWS_118",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSEnhancedMonitorEnabled\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2634,7 +2634,7 @@
           },
           "title": "Ensure all data stored in the RDS is securely encrypted at rest",
           "id": "CKV_AWS_16",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.RDSEncryption\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2669,7 +2669,7 @@
           },
           "title": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
           "id": "CKV_AWS_382",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2716,7 +2716,7 @@
           },
           "title": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80",
           "id": "CKV_AWS_260",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress80\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2751,7 +2751,7 @@
           },
           "title": "Ensure VPC subnets do not assign public IP by default",
           "id": "CKV_AWS_130",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.SubnetPublicIP\",\n  \"details\": []\n}",
           "results": [
             {
@@ -2792,7 +2792,7 @@
           },
           "title": "Ensure RDS instance with copy tags to snapshots is enabled",
           "id": "CKV2_AWS_60",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-db-db\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -2827,7 +2827,7 @@
           },
           "title": "Ensure AWS ACM Certificate domain name does not include wildcards",
           "id": "CKV2_AWS_71",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-cert\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -2862,7 +2862,7 @@
           },
           "title": "Ensure that Security Groups are attached to another resource",
           "id": "CKV2_AWS_5",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"alb-sg\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -2903,7 +2903,7 @@
           },
           "title": "Ensure the default security group of every VPC restricts all traffic",
           "id": "CKV2_AWS_12",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-vpc\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -2939,7 +2939,7 @@
           },
           "title": "Ensure Domain Name System Security Extensions (DNSSEC) signing is enabled for Amazon Route 53 public hosted zones",
           "id": "CKV2_AWS_38",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-hosted-zone\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -2976,7 +2976,7 @@
           },
           "title": "Ensure Postgres RDS as aws_db_instance has Query Logging enabled",
           "id": "CKV2_AWS_30",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-db-db\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3011,7 +3011,7 @@
           },
           "title": "Ensure VPC flow logging is enabled in all VPCs",
           "id": "CKV2_AWS_11",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-vpc\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3048,7 +3048,7 @@
           },
           "title": "Ensure Secrets Manager secrets should have automatic rotation enabled",
           "id": "CKV2_AWS_57",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"heimdall-admin-password\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3103,7 +3103,7 @@
           },
           "title": "Ensure AWS Load Balancers use strong ciphers",
           "id": "CKV2_AWS_74",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3140,7 +3140,7 @@
           },
           "title": "Ensure KMS key Policy is defined",
           "id": "CKV2_AWS_64",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"risk-sentinel-secrets-key\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3177,7 +3177,7 @@
           },
           "title": "Ensure public facing ALB are protected by WAF",
           "id": "CKV2_AWS_28",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"entity_tags\": {\n    \"Name\": \"ecs-alb\",\n    \"__file__\": \"tf_checkov.json\",\n    \"__startline__\": 1,\n    \"__endline__\": 1,\n    \"start_line\": 0,\n    \"end_line\": 0\n  },\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3214,7 +3214,7 @@
           },
           "title": "Ensure that load balancer is using at least TLS 1.2",
           "id": "CKV_AWS_103",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3249,7 +3249,7 @@
           },
           "title": "Route53 A Record has Attached Resource",
           "id": "CKV2_AWS_23",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"tf_checkov.json\",\n  \"repo_file_path\": \"/tf_checkov.json\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"tf_checkov.json\"\n}",
           "results": [
             {
@@ -3261,7 +3261,7 @@
           ]
         }
       ],
-      "sha256": "233c757b500b1b69c8ff65742cef91493b92fb090217bd30ee240651a159a3d8"
+      "sha256": "4b43912cebf56bccc2a23641860072e273161db18e2b17ae45d319810a695edc"
     }
   ],
   "passthrough": {

@@ -41,7 +41,7 @@
           },
           "title": "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)",
           "id": "CKV_AWS_93",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.S3ProtectAgainstPolicyLockout\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -82,7 +82,7 @@
           },
           "title": "S3 Bucket has an ACL defined which allows public READ access.",
           "id": "CKV_AWS_20",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -123,7 +123,7 @@
           },
           "title": "Ensure all data stored in the S3 bucket is securely encrypted at rest",
           "id": "CKV_AWS_19",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -164,7 +164,7 @@
           },
           "title": "S3 Bucket has an ACL defined which allows public WRITE access.",
           "id": "CKV_AWS_57",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -207,7 +207,7 @@
           },
           "title": "Ensure S3 buckets should have event notifications enabled",
           "id": "CKV2_AWS_62",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -250,7 +250,7 @@
           },
           "title": "Ensure that S3 bucket has a Public Access block",
           "id": "CKV2_AWS_6",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -293,7 +293,7 @@
           },
           "title": "Ensure that an S3 bucket has a lifecycle configuration",
           "id": "CKV2_AWS_61",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -336,7 +336,7 @@
           },
           "title": "Ensure that S3 buckets are encrypted with KMS by default",
           "id": "CKV_AWS_145",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -373,7 +373,7 @@
           },
           "title": "Ensure all data stored in the S3 bucket have versioning enabled",
           "id": "CKV_AWS_21",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -416,7 +416,7 @@
           },
           "title": "Ensure that S3 bucket has cross-region replication enabled",
           "id": "CKV_AWS_144",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -459,7 +459,7 @@
           },
           "title": "Ensure the S3 bucket has access logging enabled",
           "id": "CKV_AWS_18",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -496,7 +496,7 @@
           },
           "title": "Ensure that S3 buckets are encrypted with KMS by default",
           "id": "CKV_AWS_145",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -533,7 +533,7 @@
           },
           "title": "Ensure the S3 bucket has access logging enabled",
           "id": "CKV_AWS_18",
-          "impact": 0.69,
+          "impact": 0.6,
           "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
           "results": [
             {
@@ -545,7 +545,7 @@
           ]
         }
       ],
-      "sha256": "64ad848fc1acab7941e64e482b234727111c4847da4cc071cc24ed21c8e31671"
+      "sha256": "c1b8f43e9637f06a006f1a5889722e9f0de84b00a672e08ea2d2180746fa4069"
     }
   ],
   "passthrough": {

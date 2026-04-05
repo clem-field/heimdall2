@@ -82,23 +82,23 @@ type CheckovReport = {
 };
 
 // =========================================================================
-// Severity mapping — aligned with Checkov SARIF reporter
-// https://github.com/bridgecrewio/checkov/blob/main/checkov/common/output/sarif.py#L17-L23
-// Bridgecrew/Prisma Cloud severity scale (SARIF score → HDF impact):
-//   CRITICAL: 10.0 → 1.0    HIGH: 8.9 → 0.89    MEDIUM: 6.9 → 0.69
-//   LOW: 3.9 → 0.39         NONE: 0.0 → 0.0
-//
+// Severity mapping — aligned with BridgeCrew
+// https://github.com/bridgecrewio/checkov/blob/main/checkov/common/bridgecrew/severities.py
+// Bridgecrew/Prisma Cloud severity scale (score → HDF impact):
+//   CRITICAL: 5 → 1.0    HIGH: 4 → 0.8    MEDIUM: 3 → 0.6
+//   LOW: 2 → 0.4         NONE: -999 → 0.0 INFO: 1 → 0.2
+//   null (no API Key) → 0.5
 // Severity is only populated when using --bc-api-key (Prisma Cloud).
-// Without an API key, severity is always null. Default to medium (0.69)
-// treat unknown risk as moderate until a
-// formal risk assessment is performed.
+// Without an API key, severity is always null. Default to medium
+// treat unknown risk as moderate until a formal risk assessment is performed.
 // =========================================================================
 
 const IMPACT_MAPPING: Map<string, number> = new Map([
   ['critical', 1.0], // NOSONAR - explicit decimal matches Checkov SARIF scale (10.0/10) and MITRE impact patterns
-  ['high', 0.89],
-  ['medium', 0.69],
-  ['low', 0.39],
+  ['high', 0.8],
+  ['medium', 0.6],
+  ['low', 0.4],
+  ['info', 0.2],
   ['none', 0.0] // NOSONAR - explicit decimal matches Checkov SARIF scale (0.0/10) and MITRE impact patterns
 ]);
 
