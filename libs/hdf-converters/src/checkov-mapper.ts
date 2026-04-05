@@ -84,7 +84,14 @@ type CheckovReport = {
 // =========================================================================
 // Severity mapping — aligned with Checkov SARIF reporter
 // https://github.com/bridgecrewio/checkov/blob/main/checkov/common/output/sarif.py#L17-L23
-// Checkov uses 'none' (not 'info'). Scaled to [0,1].
+// Bridgecrew/Prisma Cloud severity scale (SARIF score → HDF impact):
+//   CRITICAL: 10.0 → 1.0    HIGH: 8.9 → 0.89    MEDIUM: 6.9 → 0.69
+//   LOW: 3.9 → 0.39         NONE: 0.0 → 0.0
+//
+// Severity is only populated when using --bc-api-key (Prisma Cloud).
+// Without an API key, severity is always null. Default to medium (0.69)
+// treat unknown risk as moderate until a
+// formal risk assessment is performed.
 // =========================================================================
 
 const IMPACT_MAPPING: Map<string, number> = new Map([
@@ -97,10 +104,10 @@ const IMPACT_MAPPING: Map<string, number> = new Map([
 
 function impactMapping(severity: unknown): number {
   if (_.isString(severity)) {
-    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? IMPACT_MAPPING.get('none')!; // NOSONAR - 'none' is defined in map; Checkov default severity is null → mapped to none
+    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? IMPACT_MAPPING.get('medium')!; // NOSONAR - 'medium' is defined in map; unknown severity defaults to medium
   }
-  // Checkov native JSON default severity is null → mapped to none (0)
-  return IMPACT_MAPPING.get('none')!; // NOSONAR - 'none' is defined in map
+  // Checkov native JSON default severity is null (no API key) → default to medium
+  return IMPACT_MAPPING.get('medium')!; // NOSONAR - 'medium' is defined in map
 }
 
 function statusMapper(result: unknown): ExecJSON.ControlResultStatus {

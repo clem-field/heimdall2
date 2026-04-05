@@ -41,7 +41,7 @@
           },
           "title": "Ensure no hard coded AWS access key and secret key exists in provider",
           "id": "CKV_AWS_41",
-          "impact": 0,
+          "impact": 0.69,
           "code": "{\n  \"check_class\": \"checkov.terraform.checks.provider.credentials\",\n  \"file_abs_path\": \"/src/main.tf\",\n  \"repo_file_path\": \"/main.tf\",\n  \"definition_context_file_path\": \"/main.tf\",\n  \"details\": []\n}",
           "results": [
             {
@@ -111,7 +111,7 @@
           },
           "title": "Ensure the S3 bucket has access logging enabled",
           "id": "CKV_AWS_18",
-          "impact": 0,
+          "impact": 0.69,
           "code": "{\n  \"check_class\": \"checkov.terraform.checks.resource.aws.S3AccessLogs\",\n  \"file_abs_path\": \"/src/s3/main.tf\",\n  \"repo_file_path\": \"/s3/main.tf\",\n  \"definition_context_file_path\": \"/s3/main.tf\",\n  \"details\": []\n}",
           "results": [
             {
@@ -123,7 +123,7 @@
           ]
         }
       ],
-      "sha256": "71f9577e4c21cc3dc8837e6439046fc180db670b1494348c2eca5b8d2e4252d3"
+      "sha256": "f1fde38c5035b3961933ee19cb32c4b5b4311668f04f61cb39d55ed52c9c4904"
     }
   ],
   "passthrough": {
