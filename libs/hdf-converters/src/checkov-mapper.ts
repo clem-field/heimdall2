@@ -228,7 +228,7 @@ function controlMapping(): MappedTransform<
               parts.push(`Guideline: ${check.guideline}`);
             }
             if (check.fixed_definition) {
-              parts.push(`Fix: ${_.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition)}`);
+              parts.push(`Fix: ${_.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition)}`); // NOSONAR - ternary handles string vs object; JSON.stringify prevents [object Object]
             }
             return parts.join('\n');
           }
