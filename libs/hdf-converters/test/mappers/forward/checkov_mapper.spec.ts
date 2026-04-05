@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs'; // NOSONAR - matches MITRE test patterns (node:fs not used in other tests)
 import {ExecJSON} from 'inspecjs';
 import {describe, expect, it} from 'vitest';
 import {CheckovMapper} from '../../../src/checkov-mapper';
