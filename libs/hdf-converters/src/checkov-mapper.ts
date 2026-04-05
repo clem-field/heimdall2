@@ -7,43 +7,69 @@ import {
   conditionallyProvideAttribute,
   DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS
 } from './utils/global';
+import { Data } from '../types/cyclonedx';
 
 // =========================================================================
 // Types — derived from Checkov native JSON output
 // https://github.com/bridgecrewio/checkov
+// Empirical analysis: 14 result files, 2846 checks (see docs/dev/checkov-field-analysis.md)
 // =========================================================================
 
+// Control result status
 type CheckovCheckResult = {
   result: 'PASSED' | 'FAILED' | 'SKIPPED' | 'UNKNOWN';
-  evaluated_keys?: string[];
+  evaluated_keys: string[];
+  entity: Record<string, unknown>;
   [property: string]: unknown;
 };
 
+// Individual check (passed, failed, or skipped)
 type CheckovCheck = {
+  // Always present, never null
   check_id: string;
   check_name: string;
   check_result: CheckovCheckResult;
-  file_path?: string;
-  file_line_range?: number[];
-  resource?: string;
-  resource_address?: string;
-  severity?: string | null;
-  guideline?: string;
-  bc_check_id?: string;
-  code_block?: Array<[number, string]>;
+  file_path: string;
+  file_line_range: number[];
+  resource: string;
+  code_block: Array<[number, string]>;
+  check_class: string;
+  file_abs_path: string;
+  repo_file_path: string;
+  definition_context_file_path: string;
+  details: unknown[];
+  // Nullable (present but can be null)
+  severity: string | null;
+  guideline: string | null;
+  bc_check_id: string | null;
+  resource_address: string | null;
+  entity_tags: Record<string, string> | null;
+  caller_file_path: string | null;
+  caller_file_line_range: number[] | null;
+  description: string | null;
+  benchmarks: Record<string, unknown> | null;
+  bc_category: string | null;
+  short_description: string | null;
+  connected_node: unknown;
+  fixed_definition: unknown;
+  evaluations: unknown;
+  check_len: unknown;
+  vulnerability_details: unknown;
+  // Catch-all for unmapped fields
   [property: string]: unknown;
 };
 
+// Summary — all fields always present, never null
 type CheckovSummary = {
-  passed?: number;
-  failed?: number;
-  skipped?: number;
-  parsing_errors?: number;
-  resource_count?: number;
-  checkov_version?: string;
-  [property: string]: unknown;
+  passed: number;
+  failed: number;
+  skipped: number;
+  parsing_errors: number;
+  resource_count: number;
+  checkov_version: string;
 };
 
+// Top-level report
 type CheckovReport = {
   check_type: string;
   results: {
@@ -53,8 +79,7 @@ type CheckovReport = {
     parsing_errors: unknown[];
   };
   summary: CheckovSummary;
-  url?: string;
-  [property: string]: unknown;
+  url: string;
 };
 
 // =========================================================================
@@ -64,19 +89,19 @@ type CheckovReport = {
 // =========================================================================
 
 const IMPACT_MAPPING: Map<string, number> = new Map([
-  ['critical', 0.9],
-  ['high', 0.7],
-  ['medium', 0.5],
-  ['low', 0.3],
-  ['none', 0]
+  ['critical', 1.0],
+  ['high', 0.89],
+  ['medium', 0.69],
+  ['low', 0.39],
+  ['none', 0.0]
 ]);
 
 function impactMapping(severity: unknown): number {
   if (_.isString(severity)) {
-    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? 0.5;
+    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? IMPACT_MAPPING.get('none')!;
   }
-  // Native JSON often has null severity — default to medium
-  return 0.5;
+  // Native JSON often has null severity — default to none
+  return IMPACT_MAPPING.get('none')!;
 }
 
 function statusMapper(result: unknown): ExecJSON.ControlResultStatus {
@@ -88,39 +113,45 @@ function statusMapper(result: unknown): ExecJSON.ControlResultStatus {
   return ExecJSON.ControlResultStatus.Skipped;
 }
 
-function formatCodeDesc(check: Record<string, unknown>): string {
-  const filePath = _.get(check, 'file_path') as string | undefined;
-  const lineRange = _.get(check, 'file_line_range') as number[] | undefined;
-  const resource = _.get(check, 'resource') as string | undefined;
-
+// Results tab — finding info: resource, file, line range, code snippet
+function formatCodeDesc(check: CheckovCheck): string {
   const parts: string[] = [];
-  if (resource) {
-    parts.push(`Resource: ${resource}`);
+  if (check.resource) {
+    parts.push(`Resource: ${check.resource}`);
   }
-  if (filePath) {
-    parts.push(`File: ${filePath}`);
+  if (check.file_path) {
+    const location = check.file_line_range && check.file_line_range.length >= 2
+      ? `${check.file_path}:${check.file_line_range[0]}-${check.file_line_range[1]}`
+      : check.file_path;
+    parts.push(`File: ${location}`);
   }
-  if (lineRange && Array.isArray(lineRange) && lineRange.length >= 2) {
-    parts.push(`Line: ${lineRange[0]}-${lineRange[1]}`);
+  if (Array.isArray(check.code_block) && check.code_block.length > 0) {
+    const snippet = check.code_block.map(([line, code]) => `${line}: ${code}`).join('');
+    parts.push(`<pre>\n${snippet}</pre>`);
   }
 
-  return parts.length > 0 ? parts.join(' | ') : 'Checkov security check';
+  return parts.length > 0 ? parts.join('\n') : 'Checkov security check';
 }
 
-function formatCode(check: Record<string, unknown>): string {
-  const codeBlock = _.get(check, 'code_block') as
-    | Array<[number, string]>
-    | undefined;
-  if (Array.isArray(codeBlock)) {
-    return codeBlock.map(([line, code]) => `${line}: ${code}`).join('');
+// Code tab — dumping ground for unmapped check attributes
+function formatCode(check: CheckovCheck): string {
+  const unmapped: Record<string, unknown> = {};
+
+  const mappedFields = new Set([
+    'check_id', 'check_name', 'check_result', 'file_path',
+    'file_line_range', 'resource', 'code_block', 'severity',
+    'guideline', 'bc_check_id', 'resource_address'
+  ]);
+
+  for (const [key, value] of Object.entries(check)) {
+    if (!mappedFields.has(key) && value !== null && value !== undefined) {
+      unmapped[key] = value;
+    }
   }
-  const resourceAddress = _.get(check, 'resource_address') as
-    | string
-    | undefined;
-  if (resourceAddress) {
-    return `Resource: ${resourceAddress}`;
-  }
-  return JSON.stringify(check, null, 2);
+
+  return Object.keys(unmapped).length > 0
+    ? JSON.stringify(unmapped, null, 2)
+    : '';
 }
 
 // =========================================================================
@@ -137,24 +168,18 @@ function controlMapping(): MappedTransform<
     tags: {
       cci: {
         path: 'check_id',
-        transformer: (checkId: unknown): string[] => {
-          if (_.isString(checkId)) {
-            const mapping = CheckovCciMappingData[checkId];
-            return mapping ? mapping.cci : [];
-          }
-          return [];
+        transformer: (checkId: CheckovCheck['check_id']): string[] => {
+          const mapping = CheckovCciMappingData[checkId];
+          return mapping ? mapping.cci : [];
         }
       },
       nist: {
         path: 'check_id',
-        transformer: (checkId: unknown): string[] => {
-          if (_.isString(checkId)) {
-            const mapping = CheckovCciMappingData[checkId];
-            if (mapping && mapping.nist.length > 0) {
-              return mapping.nist;
-            }
-          }
-          return DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
+        transformer: (checkId: CheckovCheck['check_id']): string[] => {
+          const mapping = CheckovCciMappingData[checkId];
+          return mapping && mapping.nist.length > 0
+            ? mapping.nist
+            : DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
         }
       },
       ...conditionallyProvideAttribute('severity', {path: 'severity'}, true),
@@ -168,11 +193,8 @@ function controlMapping(): MappedTransform<
     },
     refs: [
       {
-        transformer: (check: unknown) => {
-          const guideline = _.get(check, 'guideline') as
-            | string
-            | null
-            | undefined;
+        path:"guideline",
+        transformer: (guideline: CheckovCheck["guideline"]) => {
           if (_.isString(guideline) && guideline.length > 0) {
             return {url: guideline};
           }
@@ -181,32 +203,13 @@ function controlMapping(): MappedTransform<
       }
     ],
     source_location: {
-      transformer: (check: unknown) => {
-        const filePath = _.get(check, 'file_path') as string | undefined;
-        const lineRange = _.get(check, 'file_line_range') as
-          | number[]
-          | undefined;
-        return _.omitBy(
-          {
-            ref: filePath,
-            line: lineRange?.[0]
-          },
-          (value) => value === undefined || value === null
-        );
-      }
+      transformer: (check: CheckovCheck) => ({
+        ...conditionallyProvideAttribute('ref', check.file_path, !!check.file_path),
+        ...conditionallyProvideAttribute('line', check.file_line_range?.[0], !!check.file_line_range)
+      })
     },
     title: {path: 'check_name'},
     id: {path: 'check_id'},
-    desc: {
-      transformer: (check: Record<string, unknown>): string => {
-        const name = _.get(check, 'check_name') as string | undefined;
-        const guideline = _.get(check, 'guideline') as string | undefined;
-        if (guideline) {
-          return `${name} — ${guideline}`;
-        }
-        return name || '';
-      }
-    },
     impact: {path: 'severity', transformer: impactMapping},
     code: {transformer: formatCode},
     results: [
@@ -214,15 +217,24 @@ function controlMapping(): MappedTransform<
         status: {path: 'check_result.result', transformer: statusMapper},
         code_desc: {transformer: formatCodeDesc},
         message: {
-          transformer: (check: Record<string, unknown>): string => {
-            const result = _.get(check, 'check_result.result');
-            const name = _.get(check, 'check_name');
-            return `${result}: ${name}`;
+          transformer: (check: CheckovCheck): string => {
+            const parts: string[] = [
+              `${check.check_result.result}: ${check.check_name}`
+            ];
+            const evaluatedKeys = check.check_result.evaluated_keys;
+            if (evaluatedKeys && evaluatedKeys.length > 0) {
+              parts.push(`Evaluated: ${evaluatedKeys.join(', ')}`);
+            }
+            if (_.isString(check.guideline) && check.guideline.length > 0) {
+              parts.push(`Guideline: ${check.guideline}`);
+            }
+            if (check.fixed_definition) {
+              parts.push(`Fix: ${check.fixed_definition}`);
+            }
+            return parts.join('\n');
           }
         },
-        start_time: {
-          transformer: (): string => new Date().toISOString()
-        }
+        start_time: ""
       }
     ]
   };
@@ -241,8 +253,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
   > = {
     platform: {
       name: 'Heimdall Tools',
-      release: HeimdallToolsVersion,
-      target_id: 'Checkov (Bridgecrew)'
+      release: HeimdallToolsVersion
     },
     version: HeimdallToolsVersion,
     statistics: {},
@@ -252,7 +263,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
         version: {path: 'summary.checkov_version'},
         title: {
           path: 'check_type',
-          transformer: (checkType: unknown): string => {
+          transformer: (checkType: CheckovReport["check_type"]): string => {
             if (_.isString(checkType)) {
               return `Checkov ${checkType} Security Scan`; // NOSONAR - checkType verified as string above
             }
@@ -282,17 +293,18 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
     ],
     passthrough: {
       transformer: (
-        data: Record<string, unknown>
+        data: CheckovReport
       ): Record<string, unknown> => {
         return {
           auxiliary_data: [
             {
               name: 'Checkov',
               data: {
-                check_type: _.get(data, 'check_type'),
-                summary: _.get(data, 'summary'),
-                url: _.get(data, 'url'),
-                parsing_errors: _.get(data, 'results.parsing_errors')
+                summary: data.summary,
+                url: data.url,
+                results:{
+                  parsing_errors:data.results.parsing_errors
+                }
               }
             }
           ],

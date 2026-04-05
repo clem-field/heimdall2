@@ -1,0 +1,574 @@
+{
+  "platform": {
+    "name": "Heimdall Tools",
+    "release": "2.12.6"
+  },
+  "version": "2.12.6",
+  "statistics": {},
+  "profiles": [
+    {
+      "name": "Checkov",
+      "version": "3.2.506",
+      "title": "Checkov terraform Security Scan",
+      "supports": [],
+      "attributes": [],
+      "groups": [],
+      "status": "loaded",
+      "controls": [
+        {
+          "tags": {
+            "cci": [
+              "CCI-000226",
+              "CCI-000230"
+            ],
+            "nist": [
+              "AC-6(1)",
+              "AC-6(5)"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_93",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)",
+          "id": "CKV_AWS_93",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.terraform.checks.resource.aws.S3ProtectAgainstPolicyLockout\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "PASSED: Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)\nEvaluated: policy\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24",
+              "start_time": ""
+            },
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "PASSED: Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)\nEvaluated: policy\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-000366"
+            ],
+            "nist": [
+              "CM-6"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_20",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-1-acl-read-permissions-everyone"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "S3 Bucket has an ACL defined which allows public READ access.",
+          "id": "CKV_AWS_20",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "PASSED: S3 Bucket has an ACL defined which allows public READ access.\nEvaluated: access_control_policy/grant/*/grantee/uri, access_control_policy/grant, access_control_policy, resource_type, acl\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-1-acl-read-permissions-everyone",
+              "start_time": ""
+            },
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "PASSED: S3 Bucket has an ACL defined which allows public READ access.\nEvaluated: access_control_policy/grant/*/grantee/uri, access_control_policy/grant, access_control_policy, resource_type, acl\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-1-acl-read-permissions-everyone",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-002450"
+            ],
+            "nist": [
+              "SC-13"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_19",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-14-data-encrypted-at-rest"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure all data stored in the S3 bucket is securely encrypted at rest",
+          "id": "CKV_AWS_19",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "PASSED: Ensure all data stored in the S3 bucket is securely encrypted at rest\nEvaluated: server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm, resource_type, rule/apply_server_side_encryption_by_default/sse_algorithm\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-14-data-encrypted-at-rest",
+              "start_time": ""
+            },
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "PASSED: Ensure all data stored in the S3 bucket is securely encrypted at rest\nEvaluated: server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm, resource_type, rule/apply_server_side_encryption_by_default/sse_algorithm\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-14-data-encrypted-at-rest",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-000366"
+            ],
+            "nist": [
+              "CM-6"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_57",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-2-acl-write-permissions-everyone"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "S3 Bucket has an ACL defined which allows public WRITE access.",
+          "id": "CKV_AWS_57",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "PASSED: S3 Bucket has an ACL defined which allows public WRITE access.\nEvaluated: access_control_policy/grant/*/grantee/uri, access_control_policy/grant, access_control_policy, access_control_policy/grant/*/permission, resource_type, acl\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-2-acl-write-permissions-everyone",
+              "start_time": ""
+            },
+            {
+              "status": "passed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "PASSED: S3 Bucket has an ACL defined which allows public WRITE access.\nEvaluated: access_control_policy/grant/*/grantee/uri, access_control_policy/grant, access_control_policy, access_control_policy/grant/*/permission, resource_type, acl\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-2-acl-write-permissions-everyone",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-002687",
+              "CCI-000229"
+            ],
+            "nist": [
+              "SI-4(5)",
+              "IR-6(1)"
+            ],
+            "severity": "",
+            "checkov_id": "CKV2_AWS_62",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-62"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure S3 buckets should have event notifications enabled",
+          "id": "CKV2_AWS_62",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "FAILED: Ensure S3 buckets should have event notifications enabled\nEvaluated: resource_type\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-62",
+              "start_time": ""
+            },
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure S3 buckets should have event notifications enabled\nEvaluated: resource_type\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-62",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-001100",
+              "CCI-000213"
+            ],
+            "nist": [
+              "SC-7(5)",
+              "AC-3"
+            ],
+            "severity": "",
+            "checkov_id": "CKV2_AWS_6",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/s3-bucket-should-have-public-access-blocks-defaults-to-false-if-the-public-access-block-is-not-attached"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure that S3 bucket has a Public Access block",
+          "id": "CKV2_AWS_6",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "FAILED: Ensure that S3 bucket has a Public Access block\nEvaluated: block_public_policy, resource_type, block_public_acls\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/s3-bucket-should-have-public-access-blocks-defaults-to-false-if-the-public-access-block-is-not-attached",
+              "start_time": ""
+            },
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure that S3 bucket has a Public Access block\nEvaluated: block_public_policy, resource_type, block_public_acls\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/s3-bucket-should-have-public-access-blocks-defaults-to-false-if-the-public-access-block-is-not-attached",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-001904",
+              "CCI-000167"
+            ],
+            "nist": [
+              "MP-6(1)",
+              "AU-11"
+            ],
+            "severity": "",
+            "checkov_id": "CKV2_AWS_61",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-61"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure that an S3 bucket has a lifecycle configuration",
+          "id": "CKV2_AWS_61",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "FAILED: Ensure that an S3 bucket has a lifecycle configuration\nEvaluated: resource_type, lifecycle_rule\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-61",
+              "start_time": ""
+            },
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure that an S3 bucket has a lifecycle configuration\nEvaluated: resource_type, lifecycle_rule\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-61",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-002476",
+              "CCI-002451"
+            ],
+            "nist": [
+              "SC-28(1)",
+              "SC-12(1)"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_145",
+            "resource": "aws_s3_bucket.no_skip",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 8
+          },
+          "title": "Ensure that S3 buckets are encrypted with KMS by default",
+          "id": "CKV_AWS_145",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure that S3 buckets are encrypted with KMS by default\nEvaluated: server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm, resource_type, rule/apply_server_side_encryption_by_default/sse_algorithm\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-000510",
+              "CCI-000164"
+            ],
+            "nist": [
+              "CP-9(1)",
+              "AU-9(2)"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_21",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-16-enable-versioning"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure all data stored in the S3 bucket have versioning enabled",
+          "id": "CKV_AWS_21",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "FAILED: Ensure all data stored in the S3 bucket have versioning enabled\nEvaluated: versioning/enabled, resource_type, versioning_configuration/status\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-16-enable-versioning",
+              "start_time": ""
+            },
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure all data stored in the S3 bucket have versioning enabled\nEvaluated: versioning/enabled, resource_type, versioning_configuration/status\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-16-enable-versioning",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-000504",
+              "CCI-000512"
+            ],
+            "nist": [
+              "CP-6(1)",
+              "CP-9(3)"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_144",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-bucket-has-cross-region-replication-enabled"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure that S3 bucket has cross-region replication enabled",
+          "id": "CKV_AWS_144",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "FAILED: Ensure that S3 bucket has cross-region replication enabled\nEvaluated: replication_configuration/rules/*/status, resource_type, rule/*/status\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-bucket-has-cross-region-replication-enabled",
+              "start_time": ""
+            },
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure that S3 bucket has cross-region replication enabled\nEvaluated: replication_configuration/rules/*/status, resource_type, rule/*/status\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-bucket-has-cross-region-replication-enabled",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-000130",
+              "CCI-000169"
+            ],
+            "nist": [
+              "AU-2",
+              "AU-12"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_18",
+            "resource": "aws_s3_bucket.no_skip",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 8
+          },
+          "title": "Ensure the S3 bucket has access logging enabled",
+          "id": "CKV_AWS_18",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "failed",
+              "code_desc": "Resource: aws_s3_bucket.no_skip\nFile: /main.tf:8-10\n<pre>\n8: resource \"aws_s3_bucket\" \"no_skip\" {\n9:   bucket = \"my-other-bucket\"\n10: }\n</pre>",
+              "message": "FAILED: Ensure the S3 bucket has access logging enabled\nEvaluated: resource_type, logging\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-002476",
+              "CCI-002451"
+            ],
+            "nist": [
+              "SC-28(1)",
+              "SC-12(1)"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_145",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure that S3 buckets are encrypted with KMS by default",
+          "id": "CKV_AWS_145",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "skipped",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "SKIPPED: Ensure that S3 buckets are encrypted with KMS by default\nEvaluated: server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm, resource_type, rule/apply_server_side_encryption_by_default/sse_algorithm\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default",
+              "start_time": ""
+            }
+          ]
+        },
+        {
+          "tags": {
+            "cci": [
+              "CCI-000130",
+              "CCI-000169"
+            ],
+            "nist": [
+              "AU-2",
+              "AU-12"
+            ],
+            "severity": "",
+            "checkov_id": "CKV_AWS_18",
+            "resource": "aws_s3_bucket.example",
+            "resource_address": ""
+          },
+          "refs": [
+            {
+              "url": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging"
+            }
+          ],
+          "source_location": {
+            "ref": "/main.tf",
+            "line": 2
+          },
+          "title": "Ensure the S3 bucket has access logging enabled",
+          "id": "CKV_AWS_18",
+          "impact": 0,
+          "code": "{\n  \"file_abs_path\": \"/sample/main.tf\",\n  \"repo_file_path\": \"/sample/main.tf\",\n  \"check_class\": \"checkov.common.graph.checks_infra.base_check\",\n  \"details\": [],\n  \"definition_context_file_path\": \"/sample/main.tf\"\n}",
+          "results": [
+            {
+              "status": "skipped",
+              "code_desc": "Resource: aws_s3_bucket.example\nFile: /main.tf:2-6\n<pre>\n2: resource \"aws_s3_bucket\" \"example\" {\n3:   #checkov:skip=CKV_AWS_18:Skipping access logging for test\n4:   #checkov:skip=CKV_AWS_145:Skipping KMS encryption for test\n5:   bucket = \"my-test-bucket\"\n6: }\n</pre>",
+              "message": "SKIPPED: Ensure the S3 bucket has access logging enabled\nEvaluated: resource_type, logging\nGuideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging",
+              "start_time": ""
+            }
+          ]
+        }
+      ],
+      "sha256": "2ca07c1d81a67452e3a575198d7f0bea327550ecc4dd8c237a1778f1809c0ac6"
+    }
+  ],
+  "passthrough": {
+    "auxiliary_data": [
+      {
+        "name": "Checkov",
+        "data": {
+          "summary": {
+            "passed": 8,
+            "failed": 12,
+            "skipped": 2,
+            "parsing_errors": 1,
+            "resource_count": 2,
+            "checkov_version": "3.2.506"
+          },
+          "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud",
+          "results": {
+            "parsing_errors": [
+              "/sample/broken.tf"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
