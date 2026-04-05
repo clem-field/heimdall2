@@ -228,9 +228,8 @@ function controlMapping(): MappedTransform<
               parts.push(`Guideline: ${check.guideline}`);
             }
             if (check.fixed_definition) {
-              // NOSONAR - ternary handles string vs object; JSON.stringify prevents [object Object]
-              const fix = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition);
-              parts.push(`Fix: ${fix}`);
+              const fix: string = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition);
+              parts.push(`Fix: ${fix}`); // NOSONAR - fix is explicitly typed as string via ternary above
             }
             return parts.join('\n');
           }
