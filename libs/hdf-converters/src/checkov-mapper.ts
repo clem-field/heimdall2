@@ -94,20 +94,20 @@ type CheckovReport = {
 // =========================================================================
 
 const IMPACT_MAPPING: Map<string, number> = new Map([
-  ['critical', 1.0], // NOSONAR - explicit decimal matches Checkov SARIF scale (10.0/10) and MITRE impact patterns
+  ['critical', 1.0],
   ['high', 0.8],
   ['medium', 0.6],
   ['low', 0.4],
   ['info', 0.2],
-  ['none', 0.0] // NOSONAR - explicit decimal matches Checkov SARIF scale (0.0/10) and MITRE impact patterns
+  ['none', 0.0]
 ]);
 
 function impactMapping(severity: unknown): number {
   if (_.isString(severity)) {
-    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? IMPACT_MAPPING.get('medium')!; // NOSONAR - 'medium' is defined in map; unknown severity defaults to medium
+    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? IMPACT_MAPPING.get('medium')!;
   }
   // Checkov native JSON default severity is null (no API key) → default to medium
-  return IMPACT_MAPPING.get('medium')!; // NOSONAR - 'medium' is defined in map
+  return IMPACT_MAPPING.get('medium')!;
 }
 
 function statusMapper(result: unknown): ExecJSON.ControlResultStatus {
@@ -236,7 +236,7 @@ function controlMapping(): MappedTransform<
             }
             if (check.fixed_definition) {
               const fix: string = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition);
-              parts.push(`Fix: ${fix}`); // NOSONAR - fix is explicitly typed as string via ternary above
+              parts.push(`Fix: ${fix}`);
             }
             return parts.join('\n');
           }
@@ -272,7 +272,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
           path: 'check_type',
           transformer: (checkType: CheckovReport["check_type"]): string => {
             if (_.isString(checkType)) {
-              return `Checkov ${checkType} Security Scan`; // NOSONAR - checkType verified as string above
+              return `Checkov ${checkType} Security Scan`;
             }
             return 'Checkov Infrastructure Security Checks';
           }
