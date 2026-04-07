@@ -8,19 +8,19 @@ describe('checkov_mapper', () => {
     it('Successfully converts a terraform_plan scan', () => {
     const mapper = new CheckovMapper(
       fs.readFileSync(
-        'sample_jsons/checkov-mapper/sample_input_report/checkov_json.json',
+        'sample_jsons/checkov_mapper/sample_input_report/checkov_json.json',
         {encoding: 'utf-8'}
       )
     );
 
     // fs.writeFileSync(
-    //   'sample_jsons/checkov-mapper/checkov_json-hdf.json',
+    //   'sample_jsons/checkov_mapper/checkov_json-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
     // );
     //
       const expected = JSON.parse(
         fs.readFileSync(
-          'sample_jsons/checkov-mapper/checkov_json-hdf.json',
+          'sample_jsons/checkov_mapper/checkov_json-hdf.json',
           {encoding: 'utf-8'}
         )
       );
@@ -33,20 +33,20 @@ describe('checkov_mapper', () => {
 
     const mapper = new CheckovMapper(
       fs.readFileSync(
-        'sample_jsons/checkov-mapper/sample_input_report/checkov_json.json',
+        'sample_jsons/checkov_mapper/sample_input_report/checkov_json.json',
         {encoding: 'utf-8'}
       ),
       true
     );
 
     // fs.writeFileSync(
-    //   'sample_jsons/checkov-mapper/checkov_json-withraw-hdf.json',
+    //   'sample_jsons/checkov_mapper/checkov_json-withraw-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
     // );
 
       const expected = JSON.parse(
         fs.readFileSync(
-          'sample_jsons/checkov-mapper/checkov_json-withraw-hdf.json',
+          'sample_jsons/checkov_mapper/checkov_json-withraw-hdf.json',
           {encoding: 'utf-8'}
         )
       );
@@ -59,19 +59,19 @@ describe('checkov_mapper', () => {
     it('Successfully converts a terraform scan', () => {
     const mapper = new CheckovMapper(
       fs.readFileSync(
-        'sample_jsons/checkov-mapper/sample_input_report/checkov_sample.json',
+        'sample_jsons/checkov_mapper/sample_input_report/checkov_sample.json',
         {encoding: 'utf-8'}
       )
     );
 
     // fs.writeFileSync(
-    //   'sample_jsons/checkov-mapper/checkov_sample-hdf.json',
+    //   'sample_jsons/checkov_mapper/checkov_sample-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
     // );
 
       const expected = JSON.parse(
         fs.readFileSync(
-          'sample_jsons/checkov-mapper/checkov_sample-hdf.json',
+          'sample_jsons/checkov_mapper/checkov_sample-hdf.json',
           {encoding: 'utf-8'}
         )
       );
@@ -83,19 +83,19 @@ describe('checkov_mapper', () => {
     it('Successfully converts a terraform scan containing skipped checks and parsing errors', () => {
     const mapper = new CheckovMapper(
       fs.readFileSync(
-        'sample_jsons/checkov-mapper/sample_input_report/checkov_with_skips.json',
+        'sample_jsons/checkov_mapper/sample_input_report/checkov_with_skips.json',
         {encoding: 'utf-8'}
       )
     );
 
     // fs.writeFileSync(
-    //   'sample_jsons/checkov-mapper/checkov_with_skips-hdf.json',
+    //   'sample_jsons/checkov_mapper/checkov_with_skips-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
     // );
 
       const expected = JSON.parse(
         fs.readFileSync(
-          'sample_jsons/checkov-mapper/checkov_with_skips-hdf.json',
+          'sample_jsons/checkov_mapper/checkov_with_skips-hdf.json',
           {encoding: 'utf-8'}
         )
       );
@@ -107,19 +107,19 @@ describe('checkov_mapper', () => {
     it('Successfully converts a synthetic terraform scan containing all code paths — severity, skipped, parsing errors', () => {
     const mapper = new CheckovMapper(
       fs.readFileSync(
-        'sample_jsons/checkov-mapper/sample_input_report/checkov_synthetic.json',
+        'sample_jsons/checkov_mapper/sample_input_report/checkov_synthetic.json',
         {encoding: 'utf-8'}
       )
     );
 
     // fs.writeFileSync(
-    //   'sample_jsons/checkov-mapper/checkov_synthetic-hdf.json',
+    //   'sample_jsons/checkov_mapper/checkov_synthetic-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
     // );
 
       const expected = JSON.parse(
         fs.readFileSync(
-          'sample_jsons/checkov-mapper/checkov_synthetic-hdf.json',
+          'sample_jsons/checkov_mapper/checkov_synthetic-hdf.json',
           {encoding: 'utf-8'}
         )
       );
