@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import {ExecJSON} from 'inspecjs';
 import {version as HeimdallToolsVersion} from '../package.json';
 import {BaseConverter, ILookupPath, MappedTransform} from './base-converter';
-import {data as CheckovCciMappingData} from './mappings/CheckovCciMappingData';
+import {data as MappingData} from './mappings/CheckovToCciAndNistMappingData';
 import {
   conditionallyProvideAttribute,
   DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS
@@ -175,14 +175,14 @@ function controlMapping(): MappedTransform<
       cci: {
         path: 'check_id',
         transformer: (checkId: CheckovCheck['check_id']): string[] => {
-          const mapping = CheckovCciMappingData[checkId];
+          const mapping = MappingData[checkId];
           return mapping ? mapping.cci : [];
         }
       },
       nist: {
         path: 'check_id',
         transformer: (checkId: CheckovCheck['check_id']): string[] => {
-          const mapping = CheckovCciMappingData[checkId];
+          const mapping = MappingData[checkId];
           return mapping && mapping.nist.length > 0
             ? mapping.nist
             : DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
@@ -272,9 +272,9 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
           path: 'check_type',
           transformer: (checkType: CheckovReport["check_type"]): string => {
             if (_.isString(checkType)) {
-              return `Checkov ${checkType} Security Scan`;
+              return `Bridgecrew Checkov ${checkType} Security Scan`;
             }
-            return 'Checkov Infrastructure Security Checks';
+            return 'Bridgecrew Checkov Infrastructure Security Checks';
           }
         },
         supports: [],

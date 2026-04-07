@@ -1,16 +1,12 @@
-// CCI + NIST Mappings for Checkov/Bridgecrew rules
+// CCI + NIST Mappings for Bridgecrew Checkov rules
 // Updated: 2026-04-04
 //
 // Mapping Methodology:
-//   Each entry provides both CCI identifiers and NIST 800-53 Rev 5 controls.
-//   CCI derived from NIST via DISA CCI list. NIST controls from checkov-checks-enriched.json.
-//
+//   Use `checkov --list` to get starting baseline document.
+//   Using generative AI (Opus 4.6), mapped from Checkov v3.2.506 to CIS v8 rule IDs to NIST control families to DISA CCI.  Results were peer reviewed by two personnel after for completeness.
 //   Total checks mapped: 1341
-//   Source: checkov-checks-enriched.json (checkov --list + NIST/CCI enrichment)
 
-type CheckovCciNistMapping = {cci: string[]; nist: string[]};
-
-export const data: Record<string, CheckovCciNistMapping> = {
+export const data: Record<string, {cci: string[]; nist: string[]}> = {
   // CKV2_ADO_1: Ensure at least two approving reviews for PRs
   'CKV2_ADO_1': {cci: ['CCI-001501', 'CCI-001510'], nist: ['CM-3(2)', 'CM-5(1)']},
   // CKV2_ANSIBLE_1: Ensure that HTTPS url is used with uri
