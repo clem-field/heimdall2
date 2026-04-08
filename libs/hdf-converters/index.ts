@@ -1,7 +1,7 @@
 export {ASFFResults} from './src/asff-mapper/asff-mapper';
 export * as AwsConfigMappingData from './src/mappings/AwsConfigMappingData';
 export * as CciNistMappingData from './src/mappings/CciNistMappingData';
-export * as CheckovCciMappingData from './src/mappings/CheckovCciMappingData';
+export * as CheckovToCciAndNistMappingData from './src/mappings/CheckovToCciAndNistMappingData';
 export * as CweNistMappingData from './src/mappings/CweNistMappingData';
 export * as NessusPluginNistMappingData from './src/mappings/NessusPluginNistMappingData';
 export * as NiktoNistMappingData from './src/mappings/NiktoNistMappingData';
