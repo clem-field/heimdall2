@@ -115,7 +115,8 @@ function statusMapper(result: CheckovCheckResult['result']): ExecJSON.ControlRes
 function formatCodeDesc(check: CheckovCheck): string {
   const resource = `Resource: ${check.resource}`;
   const fileLocation = `File: ${check.file_path}:${check.file_line_range[0]}-${check.file_line_range[1]}`;
-  const codeBlock = `<pre>${check.code_block.map(([line, code]) => `${line}: ${code}`).join('').trim()}</pre>`
+  const codeBlockInner = check.code_block.map(([line, code]) => `${line}: ${code}`).join('').trim();
+  const codeBlock = `<pre>${codeBlockInner}</pre>`;
   return `${resource}\n${fileLocation}\n${check.code_block.length === 0 ? '' : codeBlock}`;
 }
 
@@ -164,7 +165,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
             path: 'results.skipped_checks',
             ...this.controlMapping()
           },
-          ...(this.data.results.parsing_errors.length !== 0 ? [{
+          ...(this.data.results.parsing_errors.length === 0 ? [] : [{
             id: 'Parsing Errors',
             impact: MEDIUM_SEVERITY,
             refs: [],
@@ -176,7 +177,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
             }],
             source_location: {},
             tags: {}
-          } as MappedTransform<ExecJSON.Control & ILookupPath, ILookupPath>] : [])
+          } as MappedTransform<ExecJSON.Control & ILookupPath, ILookupPath>])
         ],
         sha256: ''
       }
@@ -255,9 +256,11 @@ controlMapping(): MappedTransform<
         code_desc: {transformer: formatCodeDesc},
         message: {
           transformer: (check: CheckovCheck): string => {
-            const parts = Object.entries(_.omit(check.check_result, ['result'])).map(([key, value]) => `${_.startCase(key)}: ${_.isString(value) ? value: JSON.stringify(value, null, 2)}`);
-            parts.push(`Repo File Path: ${check.repo_file_path}`);
-            parts.push(`File Abs Path: ${check.file_abs_path}`);
+            const parts = Object.entries(_.omit(check.check_result, ['result'])).map(([key, value]) => `${_.startCase(key)}: ${_.isObject(value) ? JSON.stringify(value, null, 2) : String(value)}`);
+            parts.push(
+              `Repo File Path: ${check.repo_file_path}`,
+              `File Abs Path: ${check.file_abs_path}`
+            );
             if (check.fixed_definition) {
               const fix: string = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition, null, 2);
               parts.push(`Fixed Definition: ${fix}`);
