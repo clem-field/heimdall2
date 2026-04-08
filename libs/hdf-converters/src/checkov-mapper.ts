@@ -28,7 +28,7 @@ type CheckovCheck = {
   file_abs_path: string;
   repo_file_path: string;
   definition_context_file_path: string;
-  details: unknown[];
+  details: string[];
   // Always present but can be null
   severity: string | null;
   guideline: string | null;
@@ -41,11 +41,11 @@ type CheckovCheck = {
   benchmarks: Record<string, unknown> | null;
   bc_category: string | null;
   short_description: string | null;
-  connected_node: unknown;
-  fixed_definition: unknown;
-  evaluations: unknown;
-  check_len: unknown;
-  vulnerability_details: unknown;
+  vulnerability_details: Record<string, unknown> | null;
+  check_len: number | null;
+  connected_node: Record<string, unknown> | null;
+  evaluations: Record<string, unknown> | null;
+  fixed_definition: string | null;
   // Catch-all for remaining optional fields
   [property: string]: unknown;
 };
