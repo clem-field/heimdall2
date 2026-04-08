@@ -67,36 +67,39 @@ type CheckovReport = {
   url: string;
 };
 
-// =========================================================================
-// Severity mapping — aligned with BridgeCrew
 // https://github.com/bridgecrewio/checkov/blob/main/checkov/common/bridgecrew/severities.py
-// Bridgecrew/Prisma Cloud severity scale (score → HDF impact):
-//   CRITICAL: 5 → 1.0    HIGH: 4 → 0.8    MEDIUM: 3 → 0.6
-//   LOW: 2 → 0.4         NONE: -999 → 0.0 INFO: 1 → 0.2
-//   null (no API Key) → 0.5
-// Severity is only populated when using --bc-api-key (Prisma Cloud).
-// Without an API key, severity is always null. Default to medium
-// treat unknown risk as moderate until a formal risk assessment is performed.
-// =========================================================================
-
+// severity scale (score → HDF impact):
+//   CRITICAL: 5 → 1.0
+//   HIGH/IMPORTANT: 4 → 0.8
+//   MEDIUM/MODERATE: 3 → 0.6
+//   LOW: 2 → 0.4
+//   INFO: 1 → 0.2
+//   NONE: -999 → 0.0
+//   OFF: 999 -> MEDIUM
+//   null (no API Key) → MEDIUM
+// Severity is only populated when passing in an API key via --bc-api-key, otherwise it is null
+// Default to medium - treat null/unknown risk as moderate until a formal risk assessment is performed.
+const MEDIUM_SEVERITY = 0.6;
 const IMPACT_MAPPING: Map<string, number> = new Map([
   ['critical', 1.0],
   ['high', 0.8],
-  ['medium', 0.6],
+  ['important', 0.8],
+  ['medium', MEDIUM_SEVERITY],
+  ['moderate', 0.6],
   ['low', 0.4],
   ['info', 0.2],
-  ['none', 0.0]
+  ['none', 0]
 ]);
 
-function impactMapping(severity: unknown): number {
+function impactMapping(severity: CheckovCheck['severity']): number {
   if (_.isString(severity)) {
-    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? IMPACT_MAPPING.get('medium')!;
+    return IMPACT_MAPPING.get(severity.toLowerCase()) ?? MEDIUM_SEVERITY;
   }
   // Checkov native JSON default severity is null (no API key) → default to medium
-  return IMPACT_MAPPING.get('medium')!;
+  return MEDIUM_SEVERITY;
 }
 
-function statusMapper(result: unknown): ExecJSON.ControlResultStatus {
+function statusMapper(result: CheckovCheckResult['result']): ExecJSON.ControlResultStatus {
   if (result === 'PASSED') {
     return ExecJSON.ControlResultStatus.Passed;
   } else if (result === 'FAILED') {
