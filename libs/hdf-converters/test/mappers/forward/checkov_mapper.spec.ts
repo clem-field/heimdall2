@@ -17,7 +17,7 @@ describe('checkov_mapper', () => {
     //   'sample_jsons/checkov_mapper/checkov_json-hdf.json',
     //   JSON.stringify(mapper.toHdf(), null, 2)
     // );
-    //
+
       const expected = JSON.parse(
         fs.readFileSync(
           'sample_jsons/checkov_mapper/checkov_json-hdf.json',
