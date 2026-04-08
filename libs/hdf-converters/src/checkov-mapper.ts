@@ -119,25 +119,10 @@ function formatCodeDesc(check: CheckovCheck): string {
   return `${resource}\n${fileLocation}\n${check.code_block.length === 0 ? '' : codeBlock}`;
 }
 
-// Code tab — dumping ground for unmapped check attributes
 function formatCode(check: CheckovCheck): string {
-  const unmapped: Record<string, unknown> = {};
+  const unmapped = _.omit(check, ['check_id', 'check_name', 'check_result', 'file_path', 'file_line_range', 'resource', 'code_block', 'check_class', 'file_abs_path', 'repo_file_path', 'severity', 'guideline', 'description', 'short_description', 'vulnerability_details', 'fixed_definition']);
 
-  const mappedFields = new Set([
-    'check_id', 'check_name', 'check_result', 'file_path',
-    'file_line_range', 'resource', 'code_block', 'severity',
-    'guideline', 'bc_check_id', 'resource_address'
-  ]);
-
-  for (const [key, value] of Object.entries(check)) {
-    if (!mappedFields.has(key) && value !== null && value !== undefined) {
-      unmapped[key] = value;
-    }
-  }
-
-  return Object.keys(unmapped).length > 0
-    ? JSON.stringify(unmapped, null, 2)
-    : '';
+  return JSON.stringify(unmapped, null, 2);
 }
 
 // =========================================================================
