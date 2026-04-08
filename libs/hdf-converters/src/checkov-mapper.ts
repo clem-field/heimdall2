@@ -256,7 +256,7 @@ controlMapping(): MappedTransform<
         code_desc: {transformer: formatCodeDesc},
         message: {
           transformer: (check: CheckovCheck): string => {
-            const parts = Object.entries(_.omit(check.check_result, ['result'])).map(([key, value]) => `${_.startCase(key)}: ${_.isObject(value) ? JSON.stringify(value, null, 2) : String(value)}`);
+            const parts = Object.entries(_.omit(check.check_result, ['result'])).map(([key, value]) => `${_.startCase(key)}: ${_.isObject(value) || typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)}`);
             parts.push(
               `Repo File Path: ${check.repo_file_path}`,
               `File Abs Path: ${check.file_abs_path}`
