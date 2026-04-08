@@ -85,7 +85,7 @@ type CheckovReport = {
 // Default to medium - treat null/unknown risk as moderate until a formal risk assessment is performed.
 const MEDIUM_SEVERITY = 0.6;
 const IMPACT_MAPPING: Map<string, number> = new Map([
-  ['critical', 1.0],
+  ['critical', 1],
   ['high', 0.8],
   ['important', 0.8],
   ['medium', MEDIUM_SEVERITY],
