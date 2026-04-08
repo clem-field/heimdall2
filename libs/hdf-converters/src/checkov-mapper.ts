@@ -64,7 +64,7 @@ type CheckovReport = {
     passed_checks: CheckovCheck[];
     failed_checks: CheckovCheck[];
     skipped_checks: CheckovCheck[];
-    parsing_errors: unknown[];
+    parsing_errors: string[];
   };
   summary: CheckovSummary;
   url: string;
@@ -275,7 +275,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
             refs: [],
             results: [{
               path: 'results.parsing_errors',
-              code_desc: {transformer: (parsingError: string) => parsingError},
+              code_desc: {transformer: (parsingError) => parsingError},
               start_time: '',
               status: 'error'
             }],
