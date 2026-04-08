@@ -245,12 +245,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
         version: {path: 'summary.checkov_version'},
         title: {
           path: 'check_type',
-          transformer: (checkType: CheckovReport["check_type"]): string => {
-            if (_.isString(checkType)) {
-              return `Bridgecrew (by Prisma Cloud) Checkov ${checkType} Security Scan`;
-            }
-            return 'Bridgecrew (by Prisma Cloud) Checkov Infrastructure Security Checks';
-          }
+          transformer: (checkType): string => `Bridgecrew (by Prisma Cloud) Checkov ${checkType} Security Scan`
         },
         supports: [],
         attributes: [],
