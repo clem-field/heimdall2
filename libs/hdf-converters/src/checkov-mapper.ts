@@ -1,5 +1,5 @@
-import * as _ from 'lodash';
 import {ExecJSON} from 'inspecjs';
+import * as _ from 'lodash';
 import {version as HeimdallToolsVersion} from '../package.json';
 import {BaseConverter, ILookupPath, MappedTransform} from './base-converter';
 import {data as MappingData} from './mappings/CheckovToCciAndNistMappingData';
@@ -226,10 +226,6 @@ function controlMapping(): MappedTransform<
   };
 }
 
-// =========================================================================
-// CheckovMapper — extends BaseConverter<CheckovReport>
-// =========================================================================
-
 export class CheckovMapper extends BaseConverter<CheckovReport> {
   withRaw: boolean;
 
@@ -272,7 +268,20 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
           {
             path: 'results.skipped_checks',
             ...controlMapping()
-          }
+          },
+          ...(this.data.results.parsing_errors.length !== 0 ? [{
+            id: 'Parsing Errors',
+            impact: MEDIUM_SEVERITY,
+            refs: [],
+            results: [{
+              path: 'results.parsing_errors',
+              code_desc: {transformer: (parsingError: string) => parsingError},
+              start_time: '',
+              status: 'error'
+            }],
+            source_location: {},
+            tags: {}
+          } as MappedTransform<ExecJSON.Control & ILookupPath, ILookupPath>] : [])
         ],
         sha256: ''
       }
@@ -287,10 +296,7 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
               name: 'Checkov',
               data: {
                 summary: data.summary,
-                url: data.url,
-                results:{
-                  parsing_errors:data.results.parsing_errors
-                }
+                url: data.url
               }
             }
           ],
