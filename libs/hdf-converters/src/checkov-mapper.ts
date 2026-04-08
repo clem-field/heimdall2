@@ -111,24 +111,11 @@ function statusMapper(result: CheckovCheckResult['result']): ExecJSON.ControlRes
   return ExecJSON.ControlResultStatus.Skipped;
 }
 
-// Results tab — finding info: resource, file, line range, code snippet
 function formatCodeDesc(check: CheckovCheck): string {
-  const parts: string[] = [];
-  if (check.resource) {
-    parts.push(`Resource: ${check.resource}`);
-  }
-  if (check.file_path) {
-    const location = check.file_line_range && check.file_line_range.length >= 2
-      ? `${check.file_path}:${check.file_line_range[0]}-${check.file_line_range[1]}`
-      : check.file_path;
-    parts.push(`File: ${location}`);
-  }
-  if (Array.isArray(check.code_block) && check.code_block.length > 0) {
-    const snippet = check.code_block.map(([line, code]) => `${line}: ${code}`).join('');
-    parts.push(`<pre>\n${snippet}</pre>`);
-  }
-
-  return parts.length > 0 ? parts.join('\n') : 'Checkov security check';
+  const resource = `Resource: ${check.resource}`;
+  const fileLocation = `File: ${check.file_path}:${check.file_line_range[0]}-${check.file_line_range[1]}`;
+  const codeBlock = `<pre>${check.code_block.map(([line, code]) => `${line}: ${code}`).join('').trim()}</pre>`
+  return `${resource}\n${fileLocation}\n${check.code_block.length === 0 ? '' : codeBlock}`;
 }
 
 // Code tab — dumping ground for unmapped check attributes
