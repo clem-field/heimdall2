@@ -125,92 +125,6 @@ function formatCode(check: CheckovCheck): string {
   return JSON.stringify(unmapped, null, 2);
 }
 
-// =========================================================================
-// Control mapping — shared across passed/failed/skipped controls arrays
-// Follows veracode mapper pattern: function returns MappedTransform
-// =========================================================================
-
-function controlMapping(): MappedTransform<
-  ExecJSON.Control & ILookupPath,
-  ILookupPath
-> {
-  return {
-    key: 'id',
-    tags: {
-      cci: {
-        path: 'check_id',
-        transformer: (checkId: CheckovCheck['check_id']): string[] => {
-          const mapping = MappingData[checkId];
-          return mapping ? mapping.cci : [];
-        }
-      },
-      nist: {
-        path: 'check_id',
-        transformer: (checkId: CheckovCheck['check_id']): string[] => {
-          const mapping = MappingData[checkId];
-          return mapping && mapping.nist.length > 0
-            ? mapping.nist
-            : DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
-        }
-      },
-      ...conditionallyProvideAttribute('severity', {path: 'severity'}, true),
-      checkov_id: {path: 'check_id'},
-      ...conditionallyProvideAttribute('resource', {path: 'resource'}, true),
-      ...conditionallyProvideAttribute(
-        'resource_address',
-        {path: 'resource_address'},
-        true
-      )
-    },
-    refs: [
-      {
-        path:"guideline",
-        transformer: (guideline: CheckovCheck["guideline"]) => {
-          if (_.isString(guideline) && guideline.length > 0) {
-            return {url: guideline};
-          }
-          return {};
-        }
-      }
-    ],
-    source_location: {
-      transformer: (check: CheckovCheck) => ({
-        ...conditionallyProvideAttribute('ref', check.file_path, !!check.file_path),
-        ...conditionallyProvideAttribute('line', check.file_line_range?.[0], !!check.file_line_range)
-      })
-    },
-    title: {path: 'check_name'},
-    id: {transformer: (check: CheckovCheck): string => `${check.check_id}\n${check.resource}`},
-    impact: {path: 'severity', transformer: impactMapping},
-    code: {transformer: formatCode},
-    results: [
-      {
-        status: {path: 'check_result.result', transformer: statusMapper},
-        code_desc: {transformer: formatCodeDesc},
-        message: {
-          transformer: (check: CheckovCheck): string => {
-            const parts: string[] = [
-              `${check.check_result.result}: ${check.check_name}`
-            ];
-            const evaluatedKeys = check.check_result.evaluated_keys;
-            if (evaluatedKeys && evaluatedKeys.length > 0) {
-              parts.push(`Evaluated: ${evaluatedKeys.join(', ')}`);
-            }
-            if (_.isString(check.guideline) && check.guideline.length > 0) {
-              parts.push(`Guideline: ${check.guideline}`);
-            }
-            if (check.fixed_definition) {
-              const fix: string = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition);
-              parts.push(`Fix: ${fix}`);
-            }
-            return parts.join('\n');
-          }
-        },
-        start_time: ""
-      }
-    ]
-  };
-}
 
 export class CheckovMapper extends BaseConverter<CheckovReport> {
   withRaw: boolean;
@@ -240,15 +154,15 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
         controls: [
           {
             path: 'results.passed_checks',
-            ...controlMapping()
+            ...this.controlMapping()
           },
           {
             path: 'results.failed_checks',
-            ...controlMapping()
+            ...this.controlMapping()
           },
           {
             path: 'results.skipped_checks',
-            ...controlMapping()
+            ...this.controlMapping()
           },
           ...(this.data.results.parsing_errors.length !== 0 ? [{
             id: 'Parsing Errors',
@@ -286,6 +200,84 @@ export class CheckovMapper extends BaseConverter<CheckovReport> {
       }
     }
   };
+
+controlMapping(): MappedTransform<
+  ExecJSON.Control & ILookupPath,
+  ILookupPath
+> {
+  return {
+    key: 'id',
+    tags: {
+      cci: {
+        path: 'check_id',
+        transformer: (checkId: CheckovCheck['check_id']): string[] => {
+          const mapping = MappingData[checkId];
+          return mapping ? mapping.cci : DEFAULT_STATIC_CODE_ANALYSIS_CCI_TAGS;
+        }
+      },
+      nist: {
+        path: 'check_id',
+        transformer: (checkId: CheckovCheck['check_id']): string[] => {
+          const mapping = MappingData[checkId];
+          return mapping ? mapping.nist : DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS;
+        }
+      },
+      severity: {path: 'severity'},
+      checkov_id: {path: 'check_id'},
+      check_class: {path: 'check_class'},
+      resource: {path: 'resource'},
+    },
+    refs: [
+      {
+        path: 'guideline',
+        transformer: (guideline) => {
+          if (_.isString(guideline) && guideline.length > 0) {
+            return {url: guideline};
+          }
+          return {};
+        }
+      }
+    ],
+    title: {
+      transformer: (check: CheckovCheck): string => {
+        const shortDescription = check.short_description ? `: ${check.short_description}` : '';
+        return `${check.check_name}${shortDescription}`;
+      }
+    },
+    desc: {path: 'description'},
+    id: {transformer: (check: CheckovCheck): string => `${check.check_id}\n${check.resource}`},
+    impact: {path: 'severity', transformer: impactMapping},
+    code: {transformer: formatCode},
+    source_location: {},
+    results: [
+      {
+        status: {path: 'check_result.result', transformer: statusMapper},
+        code_desc: {transformer: formatCodeDesc},
+        message: {
+          transformer: (check: CheckovCheck): string => {
+            const parts = Object.entries(_.omit(check.check_result, ['result'])).map(([key, value]) => `${_.startCase(key)}: ${_.isString(value) ? value: JSON.stringify(value, null, 2)}`);
+            parts.push(`Repo File Path: ${check.repo_file_path}`);
+            parts.push(`File Abs Path: ${check.file_abs_path}`);
+            if (check.fixed_definition) {
+              const fix: string = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition, null, 2);
+              parts.push(`Fixed Definition: ${fix}`);
+            }
+            if (check.fixed_definition) {
+              const fix: string = _.isString(check.fixed_definition) ? check.fixed_definition : JSON.stringify(check.fixed_definition, null, 2);
+              parts.push(`Fixed Definition: ${fix}`);
+            }
+            if (check.vulnerability_details) {
+              const vulnDetails: string = JSON.stringify(check.vulnerability_details, null, 2);
+              parts.push(`Vulnerability Details: ${vulnDetails}`);
+            }
+            return parts.join('\n');
+          }
+        },
+        start_time: ""
+      }
+    ]
+  };
+}
 
   constructor(checkovJson: string, withRaw = false) {
     super(JSON.parse(checkovJson) as CheckovReport);
