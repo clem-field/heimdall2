@@ -194,7 +194,7 @@ function controlMapping(): MappedTransform<
       })
     },
     title: {path: 'check_name'},
-    id: {path: 'check_id'},
+    id: {transformer: (check: CheckovCheck): string => `${check.check_id}\n${check.resource}`},
     impact: {path: 'severity', transformer: impactMapping},
     code: {transformer: formatCode},
     results: [
