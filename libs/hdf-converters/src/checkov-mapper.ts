@@ -5,6 +5,7 @@ import {BaseConverter, ILookupPath, MappedTransform} from './base-converter';
 import {data as MappingData} from './mappings/CheckovToCciAndNistMappingData';
 import {
   conditionallyProvideAttribute,
+  DEFAULT_STATIC_CODE_ANALYSIS_CCI_TAGS,
   DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS
 } from './utils/global';
 
