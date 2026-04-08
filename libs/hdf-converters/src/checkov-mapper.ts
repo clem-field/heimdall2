@@ -8,23 +8,13 @@ import {
   DEFAULT_STATIC_CODE_ANALYSIS_NIST_TAGS
 } from './utils/global';
 
-// =========================================================================
-// Types — derived from Checkov native JSON output
-// https://github.com/bridgecrewio/checkov
-// Empirical analysis: 14 result files, 2846 checks (see docs/dev/checkov-field-analysis.md)
-// =========================================================================
-
-// Control result status
 type CheckovCheckResult = {
   result: 'PASSED' | 'FAILED' | 'SKIPPED' | 'UNKNOWN';
   evaluated_keys: string[];
-  entity: Record<string, unknown>;
   [property: string]: unknown;
 };
 
-// Individual check (passed, failed, or skipped)
 type CheckovCheck = {
-  // Always present, never null
   check_id: string;
   check_name: string;
   check_result: CheckovCheckResult;
@@ -37,7 +27,6 @@ type CheckovCheck = {
   repo_file_path: string;
   definition_context_file_path: string;
   details: unknown[];
-  // Nullable (present but can be null)
   severity: string | null;
   guideline: string | null;
   bc_check_id: string | null;
@@ -54,11 +43,9 @@ type CheckovCheck = {
   evaluations: unknown;
   check_len: unknown;
   vulnerability_details: unknown;
-  // Catch-all for unmapped fields
   [property: string]: unknown;
 };
 
-// Summary — all fields always present, never null
 type CheckovSummary = {
   passed: number;
   failed: number;
@@ -68,7 +55,6 @@ type CheckovSummary = {
   checkov_version: string;
 };
 
-// Top-level report
 type CheckovReport = {
   check_type: string;
   results: {
