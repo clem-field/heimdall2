@@ -15,6 +15,7 @@ type CheckovCheckResult = {
 };
 
 type CheckovCheck = {
+  // Always present, never null
   check_id: string;
   check_name: string;
   check_result: CheckovCheckResult;
@@ -27,6 +28,7 @@ type CheckovCheck = {
   repo_file_path: string;
   definition_context_file_path: string;
   details: unknown[];
+  // Always present but can be null
   severity: string | null;
   guideline: string | null;
   bc_check_id: string | null;
@@ -43,6 +45,7 @@ type CheckovCheck = {
   evaluations: unknown;
   check_len: unknown;
   vulnerability_details: unknown;
+  // Catch-all for remaining optional fields
   [property: string]: unknown;
 };
 
